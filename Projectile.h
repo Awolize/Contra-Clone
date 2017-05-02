@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PROJECTILE_H
+#define PROJECTILE_H
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
 
@@ -20,3 +21,4 @@ private:
 
 };
 
+#endif

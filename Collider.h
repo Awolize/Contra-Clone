@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COLLIDER_H
+#define COLLIDER_H
 #include <SFML/Graphics.hpp>
 
 class Collider
@@ -17,3 +18,5 @@ public:
 private:
 	sf::RectangleShape& body;
 };
+
+#endif

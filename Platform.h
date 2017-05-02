@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PLATFORM_H
+#define PLATFORM_H
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
 #include "Collider.h"
@@ -16,3 +17,4 @@ private:
 
 };
 
+#endif

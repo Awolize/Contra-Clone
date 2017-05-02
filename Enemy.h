@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ENEMY_H
+#define ENEMY_H
 #include <SFML/Graphics.hpp>
 #include "Entity.h"
 #include "Animation.h"
@@ -36,3 +37,4 @@ private:
 	float gunPlacementX{ body.getPosition().x + 45 };
 };
 
+#endif
