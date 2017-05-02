@@ -1,5 +1,8 @@
 #include "Player.h"
+#include <iostream>
+#include <math.h>
 
+using namespace std;
 
 Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, float movementSpeed, float jumpHeight) :
 	animation(texture, imageCount, switchTime)

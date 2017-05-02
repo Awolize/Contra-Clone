@@ -1,5 +1,8 @@
 #include "Platform.h"
+#include <iostream>
+#include <math.h>
 
+using namespace std;
 
 
 Platform::Platform(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position)
