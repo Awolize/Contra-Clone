@@ -1,0 +1,1 @@
+w++17 main.cpp Player.cpp Animation.cpp Collider.cpp Enemy.cpp Entity.cpp Platform.cpp Projectile.cpp -I${SFML_ROOT}/include -L${SFML_ROOT}/lib -lsfml-system -lsfml-window -lsfml-graphics

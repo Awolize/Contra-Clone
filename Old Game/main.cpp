@@ -30,7 +30,7 @@ int main()
 
     // Platform Vector Array
     std::vector<Platform> platformArray;
-    platformArray.push_back(Platform(nullptr, sf::Vector2f(400.0f, 20.0f), sf::Vector2f(1550.0f, 400.0f)));
+    platformArray.push_back(Platform(&playerTexture, sf::Vector2f(400.0f, 20.0f), sf::Vector2f(1550.0f, 400.0f)));
     platformArray.push_back(Platform(nullptr, sf::Vector2f(400.0f, 20.0f), sf::Vector2f(650.0f, 700.0f)));
     platformArray.push_back(Platform(nullptr, sf::Vector2f(10000.0f, 20.0f), sf::Vector2f(450.0f, 1000.0f)));
 	
