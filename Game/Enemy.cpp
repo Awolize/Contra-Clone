@@ -2,9 +2,9 @@
 
 
 
-Enemy::Enemy(float health, float attackDamage, float movementSpeed, float jumpHeight, 
-	     sf::Texture* texture, sf::Vector2u imageCount, float switchTime) 
-// : animation(texture, imageCount, switchTime)
+Enemy::Enemy(float health, float attackDamage, float movementSpeed, float jumpHeight,
+	sf::Texture* texture, sf::Vector2i imageCount, float switchTime)
+	: Entity(texture, imageCount, switchTime)
 {
 }
 
@@ -12,12 +12,12 @@ Enemy::~Enemy()
 {
 }
 
-void Entity::Update(int deltaTime)
+void Enemy::Update(int deltaTime) const
 {
-    
 }
 
-void Entity::Draw(sf::RenderWindow& window)
+void Enemy::Draw(sf::RenderWindow & window) const
 {
-    window.draw(body);
+	window.draw(body);
 }
+

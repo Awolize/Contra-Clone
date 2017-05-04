@@ -2,8 +2,9 @@
 #define PLAYER_H
 #include <SFML/Graphics.hpp>
 #include "Characters.h"
+#include "Animation.h"
 
-class Player : public Characters
+class Player
 {
 public:
 	Player();
