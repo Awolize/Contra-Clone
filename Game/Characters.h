@@ -9,8 +9,10 @@ public:
     Characters();
     ~Characters();
 
-private:
-
+// Var
+    float health;
+    float movementSpeed;
+    float attackDamage;
 };
 
 #endif

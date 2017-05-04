@@ -5,10 +5,14 @@
 class Entity
 {
 public:
-	Entity();
-	~Entity();
+    Entity();
+    ~Entity();
 
-	sf::RectangleShape body;
+    void Update(int deltaTime);
+    void Draw();
+    
+    // Var 
+    sf::RectangleShape body;
 };
 
 #endif
