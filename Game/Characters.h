@@ -11,8 +11,9 @@ public:
 
 // Var
     float health;
-    float movementSpeed;
     float attackDamage;
+    float movementSpeed;
+    float jumpHeight;
 };
 
 #endif

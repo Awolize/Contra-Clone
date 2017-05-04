@@ -9,7 +9,7 @@ public:
     ~Entity();
 
     void Update(int deltaTime);
-    void Draw();
+    void Draw(sf::RenderWindow& window);
     
     // Var 
     sf::RectangleShape body;

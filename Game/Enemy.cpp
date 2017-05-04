@@ -2,7 +2,9 @@
 
 
 
-Enemy::Enemy()
+Enemy::Enemy(float health, float attackDamage, float movementSpeed, float jumpHeight, 
+	     sf::Texture* texture, sf::Vector2u imageCount, float switchTime) 
+// : animation(texture, imageCount, switchTime)
 {
 }
 
