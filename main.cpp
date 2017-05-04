@@ -23,11 +23,11 @@ int main()
     sf::View view(sf::Vector2f(0.0f,0.0f), sf::Vector2f(512.0f, 512.0f));
     sf::Texture playerTexture;
     playerTexture.loadFromFile("playerTexture.png");
-    //			  texture,		  imageCount,  switchTime,	speed, jumpHeight);
+    //			  texture,	   imageCount,  switchTime,	speed, jumpHeight);
     Player player(&playerTexture, sf::Vector2u(5, 2), 0.2f, 350.0f, 400.0f);
 
-
     Enemy enemy(&playerTexture, sf::Vector2u(5, 2), 0.2f, 350.0f, 400.0f);
+
     // Platform Vector Array
     std::vector<Platform> platformArray;
     platformArray.push_back(Platform(nullptr, sf::Vector2f(400.0f, 20.0f), sf::Vector2f(1550.0f, 400.0f)));
@@ -35,9 +35,6 @@ int main()
     platformArray.push_back(Platform(nullptr, sf::Vector2f(10000.0f, 20.0f), sf::Vector2f(450.0f, 1000.0f)));
 	
     // Platform Vector Array
-
-
-
 
     float deltaTime = 0.0f;
     sf::Clock clock;
@@ -72,11 +69,18 @@ int main()
 	sf::Vector2f direction;
 
 	for (Platform& platform : platformArray)
-	    if (platform.GetCollider().CheckCollision(player.GetCollider(), direction, 1.0f))
+	{
+	    Collider temp1 = player.GetCollider();
+	    if (platform.GetCollider().CheckCollision(temp1, direction, 1.0f))
+	    {
 		player.OnCollision(direction);
-	for (Platform& platform : platformArray)
-	    if (platform.GetCollider().CheckCollision(enemy.GetCollider(), direction, 1.0f))
+	    }
+	    Collider temp2 = enemy.GetCollider();
+	    if (platform.GetCollider().CheckCollision(temp2, direction, 1.0f))
+	    {
 		enemy.OnCollision(direction);
+	    }
+	}
 
 	view.setCenter(player.getPosition());
 

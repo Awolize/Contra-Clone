@@ -111,7 +111,7 @@ void Player::OnCollision(sf::Vector2f direction)
 	}
 	else if (direction.y > 0.0f) // Collision on the top.
 	{
-		velocity.x = 0.0f;
+		velocity.y = 0.0f;
 		canJump = false;
 	}
 }
