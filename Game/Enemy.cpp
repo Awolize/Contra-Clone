@@ -4,7 +4,8 @@
 
 Enemy::Enemy(float health, float attackDamage, float movementSpeed, float jumpHeight,
 	sf::Texture* texture, sf::Vector2i imageCount, float switchTime)
-	: Entity(texture, imageCount, switchTime)
+	: Characters(health, attackDamage, movementSpeed,  jumpHeight,
+		texture, imageCount, switchTime)
 {
 }
 
@@ -20,4 +21,3 @@ void Enemy::Draw(sf::RenderWindow & window) const
 {
 	window.draw(body);
 }
-

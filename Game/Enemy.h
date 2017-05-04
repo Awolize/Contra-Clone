@@ -4,7 +4,7 @@
 #include "Characters.h"
 #include "Entity.h"
 
-class Enemy : public Entity
+class Enemy : public Characters
 {
 public:
     Enemy(float health, float attackDamage, float movementSpeed, float jumpHeight,
