@@ -1,19 +1,17 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 #include <SFML/Graphics.hpp>
-#include "Animation.h"
 
 class Entity
 {
 public:
-    Entity(sf::Texture* texture, sf::Vector2i imageCount, float switchTime);
+    Entity(sf::Vector2f position);
     ~Entity();
 
-    virtual void Update(int deltaTime) const = 0;
-	virtual void Draw(sf::RenderWindow& window) const = 0;
+    virtual void Update(int deltaTime) = 0;
+    virtual void Draw(sf::RenderWindow& window) = 0;
     
-	sf::RectangleShape body;
-	Animation animation;
+    sf::RectangleShape body;
 };
 
 #endif

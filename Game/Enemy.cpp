@@ -2,22 +2,25 @@
 
 
 
-Enemy::Enemy(float health, float attackDamage, float movementSpeed, float jumpHeight,
-	sf::Texture* texture, sf::Vector2i imageCount, float switchTime)
-	: Characters(health, attackDamage, movementSpeed,  jumpHeight,
-		texture, imageCount, switchTime)
+Enemy::Enemy(sf::Vector2f position, float health, float attackDamage, float movementSpeed, float jumpHeight,
+	     sf::Texture* texture, sf::Vector2i imageCount, float switchTime)
+    : Characters(position, health, attackDamage, movementSpeed, jumpHeight), 
+      animation(texture, imageCount, switchTime)
 {
+    body.setTexture(texture);
 }
 
 Enemy::~Enemy()
 {
 }
 
-void Enemy::Update(int deltaTime) const
+void Enemy::Update(int deltaTime)
 {
+    animation.Update(row, deltaTime);
+    body.setTextureRect(animation.xyRect);
 }
 
-void Enemy::Draw(sf::RenderWindow & window) const
+void Enemy::Draw(sf::RenderWindow & window)
 {
-	window.draw(body);
+    window.draw(body);
 }
