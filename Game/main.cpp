@@ -5,41 +5,73 @@
 #include "Enemy.h"
 #include "Entity.h"
 #include "Player.h"
+#include "speed.h"
+#include "UserInput.h"
+
+
+bool pressedKey(bool pressed, sf::Keyboard::Key current, UserInput &keys)
+{ 
+	switch (current)
+	{ 
+	case ::sf::Keyboard::Escape: 
+		return true; 
+	default: 	
+	keys.pressedKey(pressed, current); 	
+	break; 
+	} 
+	return false; 
+}
 
 int main()
 {
 	sf::View Box;
 	Box.reset(sf::FloatRect(200, 200, 300, 200));
-	Box.setCenter(sf::Vector2f(350, 300));
-
+	Box.setCenter(sf::Vector2f(350, 300));	
 	sf::Texture texture;
-	texture.loadFromFile("images/background2.png");
-	sf::RectangleShape rectangle(sf::Vector2f(150, 80));
-	sf::RenderWindow window(sf::VideoMode(1024, 768), "My window",
-		sf::Style::Close | sf::Style::Resize);
-
+	sf::CircleShape circle(40); 
+	circle.setOrigin(0, 0); 
+	sf::Vector2f circlePos(0, 0);
+	circle.setFillColor(sf::Color::Red);
+	sf::RenderWindow window(sf::VideoMode(1024, 768), "Contra",
+				sf::Style::Close | sf::Style::Resize);
+        window.setKeyRepeatEnabled(false);
 	window.setVerticalSyncEnabled(true);
+	UserInput keys;
+	bool quit = false;
 
-	// run the program as long as the window is open
-	while (window.isOpen())
+	while (!quit)
 	{
-
-		sf::Event event;
-		while (window.pollEvent(event))
+	    sf::Event event;
+	    while (window.pollEvent(event))
+	    {
+		switch (event.type) 
 		{
-			// "close requested" event: we close the window
-			if (event.type == sf::Event::Closed)
-				window.close();
+		case sf::Event::Closed:
+		    quit = true;
+		    break;
+		case sf::Event::KeyPressed: 
+		    quit |= pressedKey(true, event.key.code, keys); 		
+		    break; 	
+		case sf::Event::KeyReleased: 
+		    quit |= pressedKey(false, event.key.code, keys); 
+		    break;
+		default:		
+		    break;
+		    std::cout << "Event: " << event.type << std::endl;
+		    break;
 		}
 
-		window.clear(sf::Color::Blue);
-		sf::Sprite background(texture);
-		//background.setScale(3.0f, 1.0f);
-		window.draw(rectangle);
-		window.draw(background);
-		window.display();
-	}
 
+	    }
+
+	    window.clear();
+	    circlePos += keys.direction() * 2.0f;
+	    circle.setPosition(circlePos);
+	    window.draw(circle);
+	    window.display();
+	}
+	
+	window.close();
 
 	return 0;
 }
