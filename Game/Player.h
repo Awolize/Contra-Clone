@@ -8,13 +8,16 @@
 class Player : public Characters
 {
 public:
-Player(float health, float attackDamage, float movementSpeed, float jumpHeight,
-	 sf::Texture* texture, sf::Vector2i imageCount, float switchTime);
-~Player();
+    Player(sf::Vector2f position, float health, float attackDamage, float movementSpeed, float jumpHeight,
+	   sf::Texture* texture, sf::Vector2i imageCount, float switchTime);
+    ~Player();
 
-void Update(int deltaTime) const override;
-void Draw(sf::RenderWindow& window) const override;
+    void Update(int deltaTime) override;
+    void Draw(sf::RenderWindow& window) override;
 
+private:
+    int row{ 0 };
+    Animation animation;
 };
 
 #endif

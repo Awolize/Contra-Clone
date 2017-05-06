@@ -15,6 +15,7 @@ public:
     void Draw(sf::RenderWindow& window) override;
 
 private:
+    int row{ 0 };
     Animation animation;
 };
 
