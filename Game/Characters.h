@@ -6,15 +6,15 @@
 class Characters : public Entity
 {
 public:
-	Characters(float health, float attackDamage, float movementSpeed, float jumpHeight,
-		sf::Texture* texture, sf::Vector2i imageCount, float switchTime);
-	~Characters();
+    Characters(sf::Vector2f position, float health, float attackDamage, float movementSpeed, float jumpHeight);
+    ~Characters();
 
-	// Var
-	float health{ 100.0f };
-	float attackDamage{ 100.0f };
-	float movementSpeed{ 100.0f };
-	float jumpHeight{ 10.0f };
+    // Var
+private:
+    float health{ 100.0f };
+    float attackDamage{ 100.0f };
+    float movementSpeed{ 100.0f };
+    float jumpHeight{ 10.0f };
 };
 
 #endif

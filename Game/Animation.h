@@ -9,7 +9,7 @@ public:
 	~Animation();
 
 	void Update(int row, float deltaTime);
-	sf::IntRect rect;
+	sf::IntRect xyRect;
 
 private:
 	float totalTime;
