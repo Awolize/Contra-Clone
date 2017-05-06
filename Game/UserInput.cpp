@@ -33,5 +33,5 @@ sf::Vector2f UserInput::direction() const
 	dir.x -= 1.0f; 	
     if (right) 
 	dir.x += 1.0f; 	
-    return normalize(dir);
+    return (dir);
 } 

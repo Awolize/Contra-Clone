@@ -1,7 +1,6 @@
 #ifndef USERINPUT_H
 #define USERINPUT_H
 #include <SFML/Graphics.hpp>
-#include "speed.h"
 
 class UserInput
 {
