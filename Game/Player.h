@@ -3,14 +3,18 @@
 #include <SFML/Graphics.hpp>
 #include "Characters.h"
 #include "Animation.h"
+#include "Characters.h"
 
-class Player
+class Player : public Characters
 {
 public:
-	Player();
-	~Player();
+Player(float health, float attackDamage, float movementSpeed, float jumpHeight,
+	 sf::Texture* texture, sf::Vector2i imageCount, float switchTime);
+~Player();
 
-private:
+void Update(int deltaTime) const override;
+void Draw(sf::RenderWindow& window) const override;
+
 };
 
 #endif
