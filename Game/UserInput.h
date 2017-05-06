@@ -13,8 +13,7 @@ public:
 
     void onKey(bool pressed, sf::Keyboard::Key key) {
 	switch (key) { 	
-	case sf::Keyboard::Up: 	
-	case sf::Keyboard::W: 	
+	case sf::Keyboard::Up: || sf::Keyboard::W: 	
 	    up = pressed; 		
 	    break; 	
 	case sf::Keyboard::Down: 
