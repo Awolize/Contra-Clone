@@ -4,6 +4,8 @@
 #include "Characters.h"
 #include "Animation.h"
 #include "Characters.h"
+#include "Collider.h"
+#include "Bullet.h"
 
 class Player : public Characters
 {
@@ -16,6 +18,8 @@ public:
     void Draw(sf::RenderWindow& window) override;
 
     sf::Vector2f getPosition() { return body.getPosition(); }
+	Collider Collision() { return Collider(body); }
+	void CheckCollision(Bullet bullet);
 
 private:
     int row{ 0 };
@@ -23,6 +27,9 @@ private:
     sf::Vector2f velocity;
     bool canJump{ true };
     bool faceRight{ true };
+	bool isFiring{ false };
+	std::vector<Bullet> BulletArray;
+	Bullet bullet;
 };
 
 #endif

@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Characters.h"
 #include "Animation.h"
+#include "Bullet.h"
 
 class Enemy : public Characters
 {
@@ -13,6 +14,8 @@ public:
 
     void Update(float deltaTime) override;
     void Draw(sf::RenderWindow& window) override;
+
+	void CheckCollision(Bullet Bullet);
 
 private:
     int row{ 0 };

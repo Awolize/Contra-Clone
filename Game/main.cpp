@@ -5,7 +5,6 @@
 #include "Enemy.h"
 #include "Entity.h"
 #include "Player.h"
-#include "UserInput.h"
 
 
 using namespace std;
@@ -19,7 +18,7 @@ int main()
     window.setKeyRepeatEnabled(false);
     window.setVerticalSyncEnabled(true);
 
-    // Textures
+    // Define Textures
     sf::Texture playerTexture;
     playerTexture.loadFromFile("images/playerTexture.png");
 
@@ -30,16 +29,14 @@ int main()
     level1.setTexture(background);
     level1.setOrigin(500.0f, 300.0f);
 
-    // Objects	
-    Enemy enemy(sf::Vector2f(400, 400), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
+    // Define Objects	
+    Enemy enemy(sf::Vector2f(400, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
     Player player(sf::Vector2f(200, 0), 100, 100, 400, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
-
-    sf::RectangleShape rec(sf::Vector2f(40.0f, 40.0f)); 
-    rec.setOrigin(10.0f, 20.0f); 
-    rec.setFillColor(sf::Color::Red);
+	std::vector<Bullet> bulletVector;
     
     sf::RectangleShape ground(sf::Vector2f(2000.0f, 40.0f));
-    ground.setOrigin(200, -290);
+	ground.setPosition(0, 70);
+    ground.setOrigin(1000, 20);
     ground.setFillColor(sf::Color::Green);
 
     float deltaTime = 0.0f;
@@ -84,7 +81,6 @@ int main()
 //-----------------------------
 	window.draw(level1);
 	window.draw(ground);
-	window.draw(rec);
 
 	enemy.Draw(window);
 	player.Draw(window);
