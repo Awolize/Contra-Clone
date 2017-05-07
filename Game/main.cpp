@@ -32,7 +32,7 @@ int main()
 
     // Objects	
     Enemy enemy(sf::Vector2f(400, 400), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
-    Player player(sf::Vector2f(200, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
+    Player player(sf::Vector2f(200, 0), 100, 100, 400, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
 
     sf::RectangleShape rec(sf::Vector2f(40.0f, 40.0f)); 
     rec.setOrigin(10.0f, 20.0f); 
@@ -77,7 +77,7 @@ int main()
 	// Update objects
 	enemy.Update(deltaTime);
 	player.Update(deltaTime);
-	
+
 	view.setCenter(player.getPosition().x, 0);
 // Objects rendered before clear will not be visible
 	window.clear();
