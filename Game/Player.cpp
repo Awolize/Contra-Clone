@@ -24,7 +24,6 @@ void Player::Update(float deltaTime)
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
   {
     velocity.x += movementSpeed;
-    std::cout << "hej";
   }
   // if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
   // collision = false;;
