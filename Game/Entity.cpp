@@ -13,3 +13,5 @@ Entity::Entity(sf::Vector2f position)
 Entity::~Entity()
 {
 }
+
+

@@ -29,7 +29,7 @@ void Player::Update(float deltaTime)
 
 	velocity.y = -sqrtf(2.0f * 982.0f * jumpHeight);
     }
-//    velocity.y += 982.0f * deltaTime;
+    velocity.y += 982.0f * deltaTime;
     
     if (velocity.x == 0.0f)
 	if (faceRight == true)

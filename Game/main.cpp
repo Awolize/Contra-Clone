@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "Entity.h"
 #include "Player.h"
+#include "Collision.h"
 #include "UserInput.h"
 
 
@@ -81,11 +82,12 @@ int main()
 	view.setCenter(player.getPosition().x, 0);
 // Objects rendered before clear will not be visible
 	window.clear();
+	checkCollision(player, ground, deltaTime);
 //-----------------------------
 	window.draw(level1);
 	window.draw(ground);
 	window.draw(rec);
-
+	
 	enemy.Draw(window);
 	player.Draw(window);
 
