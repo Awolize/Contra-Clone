@@ -14,7 +14,7 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Update(int deltaTime)
+void Enemy::Update(float deltaTime)
 {
     animation.Update(row, deltaTime);
     body.setTextureRect(animation.xyRect);
