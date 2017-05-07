@@ -28,6 +28,7 @@ int main()
     rec.setFillColor(sf::Color::Red);
 
     Enemy enemy(sf::Vector2f(400, 400), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 2), 0.2f);
+    Player player(sf::Vector2f(200, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 2), 0.2f);
 
     float deltaTime = 0.0f;
     sf::Clock clock;
@@ -60,17 +61,18 @@ int main()
 		    cout << "ASCII chaaracter typed: " << static_cast<char>(event.text.unicode) << endl;
 	    }
 	}
-	rec.move(50*deltaTime, 50*deltaTime);
 
 	// Update objects
 	enemy.Update(deltaTime);
+	player.Update(deltaTime);
 	
-	view.setCenter(rec.getPosition().x, 0);
+	view.setCenter(player.getPosition().x, 0);
 // Objects rendered before clear will not be visible
 	window.clear();
 //-----------------------------
 	window.draw(rec);
 	enemy.Draw(window);
+	player.Draw(window);
 
 	window.setView(view);
 	window.display();

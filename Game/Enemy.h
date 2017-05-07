@@ -11,7 +11,7 @@ public:
 	  sf::Texture* texture, sf::Vector2i imageCount, float switchTime);
     ~Enemy();
 
-    void Update(int deltaTime) override;
+    void Update(float deltaTime) override;
     void Draw(sf::RenderWindow& window) override;
 
 private:
