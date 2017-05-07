@@ -24,6 +24,13 @@ int main()
     sf::Texture playerTexture;
     playerTexture.loadFromFile("images/playerTexture.png");
 
+    sf::Texture background;
+    background.loadFromFile("images/7680.png");
+
+    sf::Sprite level1;
+    level1.setTexture(background);
+    level1.setOrigin(500.0f, 300.0f);
+
     // Objects	
     sf::RectangleShape rec(sf::Vector2f(40.0f, 40.0f)); 
     rec.setOrigin(10.0f, 20.0f); 
@@ -75,6 +82,7 @@ int main()
 // Objects rendered before clear will not be visible
 	window.clear();
 //-----------------------------
+	window.draw(level1);
 	window.draw(ground);
 	window.draw(rec);
 	enemy.Draw(window);
