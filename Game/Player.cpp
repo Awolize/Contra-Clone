@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <iostream>
 #include <cmath>
 
 Player::Player(sf::Vector2f position, float health, float attackDamage, float movementSpeed, float jumpHeight,
@@ -15,7 +16,8 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
-    velocity.x *= 0.0f;
+    std::cout << row;
+    velocity.x = 0.0f;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	velocity.x -= movementSpeed;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
@@ -28,24 +30,26 @@ void Player::Update(float deltaTime)
 
 	velocity.y = -sqrtf(2.0f * 982.0f * jumpHeight);
     }
-    velocity.y += 982.0f * deltaTime;
+//    velocity.y += 982.0f * deltaTime;
     
     if (velocity.x == 0.0f)
-	row = 0;
+	if (faceRight == true)
+	    row = 0;
+	else	
+	    row = 1;
     else
     {
 	if (velocity.x > 0.0f)
 	{
-	    row = 1;
-	    directionRight = true;
+	    row = 2;
+	    faceRight = true;
 	}
 	else
 	{
-	    row = 2;
-	    directionRight = false;
+	    row = 3;
+	    faceRight = false;
 	}
     }
-
 
     animation.Update(row, deltaTime);
     body.setTextureRect(animation.xyRect);

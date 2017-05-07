@@ -23,12 +23,8 @@ int main()
     playerTexture.loadFromFile("images/playerTexture.png");
 
     // Objects	
-    sf::RectangleShape rec(sf::Vector2f(40.0f, 40.0f)); 
-    rec.setOrigin(20.0f, 20.0f); 
-    rec.setFillColor(sf::Color::Red);
-
-    Enemy enemy(sf::Vector2f(400, 400), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 2), 0.2f);
-    Player player(sf::Vector2f(200, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 2), 0.2f);
+    Enemy enemy(sf::Vector2f(400, 400), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
+    Player player(sf::Vector2f(200, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
 
     float deltaTime = 0.0f;
     sf::Clock clock;
@@ -70,7 +66,6 @@ int main()
 // Objects rendered before clear will not be visible
 	window.clear();
 //-----------------------------
-	window.draw(rec);
 	enemy.Draw(window);
 	player.Draw(window);
 

@@ -12,7 +12,7 @@ public:
     virtual void Draw(sf::RenderWindow& window) = 0;
     
     sf::RectangleShape body;
-    bool directionRight;
+    bool faceRight;
 };
 
 #endif

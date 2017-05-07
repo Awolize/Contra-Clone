@@ -22,7 +22,7 @@ private:
     Animation animation;
     sf::Vector2f velocity;
     bool canJump{ true };
-    
+    bool faceRight{ true };
 };
 
 #endif
