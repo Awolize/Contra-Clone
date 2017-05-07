@@ -6,7 +6,6 @@
 #include "Entity.h"
 #include "Player.h"
 #include "Collision.h"
-#include "UserInput.h"
 
 
 using namespace std;
@@ -39,9 +38,9 @@ int main()
     rec.setOrigin(10.0f, 20.0f); 
     rec.setFillColor(sf::Color::Red);
     
-    sf::RectangleShape ground(sf::Vector2f(2000.0f, 40.0f));
-    ground.setOrigin(200, -290);
-    ground.setFillColor(sf::Color::Green);
+    sf::RectangleShape ground(sf::Vector2f(20000.0f, 40.0f));
+    ground.setOrigin(200, -50);
+    ground.setFillColor(sf::Color::Transparent);
 
     float deltaTime = 0.0f;
     sf::Clock clock;
@@ -84,6 +83,7 @@ int main()
 	window.clear();
 	checkCollision(player, ground, deltaTime);
 //-----------------------------
+	window.setVerticalSyncEnabled(true);
 	window.draw(level1);
 	window.draw(ground);
 	window.draw(rec);

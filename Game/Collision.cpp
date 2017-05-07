@@ -19,7 +19,7 @@ void checkCollision(Player & firstBox, sf::RectangleShape & secondBox, float & d
 	firstBox.body.move(0 ,0);
     else
     {
-	firstBox.body.move(0, -50*deltatime);
+	firstBox.body.move(0, -31*deltatime);
 	firstBox.velocity.y = 0;
     }
 }
