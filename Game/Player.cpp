@@ -16,7 +16,6 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
-    std::cout << row;
     velocity.x = 0.0f;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	velocity.x -= movementSpeed;
