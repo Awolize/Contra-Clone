@@ -7,6 +7,8 @@
 #include "Player.h"
 #include "UserInput.h"
 
+
+
 using namespace std;
 
 int main()
@@ -24,8 +26,12 @@ int main()
 
     // Objects	
     sf::RectangleShape rec(sf::Vector2f(40.0f, 40.0f)); 
-    rec.setOrigin(20.0f, 20.0f); 
+    rec.setOrigin(10.0f, 20.0f); 
     rec.setFillColor(sf::Color::Red);
+    
+    sf::RectangleShape ground(sf::Vector2f(2000.0f, 40.0f));
+    ground.setOrigin(200, -290);
+    ground.setFillColor(sf::Color::Green);
 
     Enemy enemy(sf::Vector2f(400, 400), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 2), 0.2f);
 
@@ -69,6 +75,7 @@ int main()
 // Objects rendered before clear will not be visible
 	window.clear();
 //-----------------------------
+	window.draw(ground);
 	window.draw(rec);
 	enemy.Draw(window);
 
