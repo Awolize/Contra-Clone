@@ -32,6 +32,7 @@ int main()
     level1.setOrigin(500.0f, 300.0f);
 
     // Objects	
+<<<<<<< HEAD
     sf::RectangleShape rec(sf::Vector2f(40.0f, 40.0f)); 
     rec.setOrigin(10.0f, 20.0f); 
     rec.setFillColor(sf::Color::Red);
@@ -41,6 +42,10 @@ int main()
     ground.setFillColor(sf::Color::Green);
 
     Enemy enemy(sf::Vector2f(400, 400), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 2), 0.2f);
+=======
+    Enemy enemy(sf::Vector2f(400, 400), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
+    Player player(sf::Vector2f(200, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
+>>>>>>> origin/aleer778
 
     float deltaTime = 0.0f;
     sf::Clock clock;
@@ -73,19 +78,23 @@ int main()
 		    cout << "ASCII chaaracter typed: " << static_cast<char>(event.text.unicode) << endl;
 	    }
 	}
-	rec.move(50*deltaTime, 50*deltaTime);
 
 	// Update objects
 	enemy.Update(deltaTime);
+	player.Update(deltaTime);
 	
-	view.setCenter(rec.getPosition().x, 0);
+	view.setCenter(player.getPosition().x, 0);
 // Objects rendered before clear will not be visible
 	window.clear();
 //-----------------------------
+<<<<<<< HEAD
 	window.draw(level1);
 	window.draw(ground);
 	window.draw(rec);
+=======
+>>>>>>> origin/aleer778
 	enemy.Draw(window);
+	player.Draw(window);
 
 	window.setView(view);
 	window.display();

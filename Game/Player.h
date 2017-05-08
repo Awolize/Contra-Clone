@@ -12,12 +12,17 @@ public:
 	   sf::Texture* texture, sf::Vector2i imageCount, float switchTime);
     ~Player();
 
-    void Update(int deltaTime) override;
+    void Update(float deltaTime) override;
     void Draw(sf::RenderWindow& window) override;
+
+    sf::Vector2f getPosition() { return body.getPosition(); }
 
 private:
     int row{ 0 };
     Animation animation;
+    sf::Vector2f velocity;
+    bool canJump{ true };
+    bool faceRight{ true };
 };
 
 #endif
