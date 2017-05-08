@@ -5,7 +5,8 @@
 #include "Enemy.h"
 #include "Entity.h"
 #include "Player.h"
-#include "UserInput.h"
+#include "Collision.h"
+
 
 
 
@@ -27,6 +28,22 @@ int main()
     sf::Texture background;
     background.loadFromFile("images/7680.png");
 
+<<<<<<< HEAD
+=======
+    sf::Texture bullet;
+    bullet.loadFromFile("images/bullet.png");
+
+    sf::Sprite projectile;
+    projectile.setTexture(bullet);
+
+    sf::Vector2f bulletpos;
+    projectile.setPosition(bulletpos);
+
+    projectile.setScale(sf::Vector2f(0.2f, 0.2f));
+    //projectile.scale(sf::Vector2f(1.5f, 3.f));
+
+
+>>>>>>> master
     sf::Sprite level1;
     level1.setTexture(background);
     level1.setOrigin(500.0f, 300.0f);
@@ -46,6 +63,16 @@ int main()
     Enemy enemy(sf::Vector2f(400, 400), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
     Player player(sf::Vector2f(200, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
 >>>>>>> origin/aleer778
+
+
+    sf::RectangleShape rec(sf::Vector2f(40.0f, 40.0f)); 
+    rec.setOrigin(10.0f, 20.0f); 
+    rec.setFillColor(sf::Color::Red);
+
+    
+    sf::RectangleShape ground(sf::Vector2f(20000.0f, 40.0f));
+    ground.setOrigin(200, -50);
+    ground.setFillColor(sf::Color::Transparent);
 
     float deltaTime = 0.0f;
     sf::Clock clock;
@@ -79,6 +106,7 @@ int main()
 	    }
 	}
 
+
 	// Update objects
 	enemy.Update(deltaTime);
 	player.Update(deltaTime);
@@ -86,18 +114,43 @@ int main()
 	view.setCenter(player.getPosition().x, 0);
 // Objects rendered before clear will not be visible
 	window.clear();
+	checkCollision(player, ground, deltaTime);
 //-----------------------------
+<<<<<<< HEAD
 <<<<<<< HEAD
 	window.draw(level1);
 	window.draw(ground);
 	window.draw(rec);
 =======
 >>>>>>> origin/aleer778
+=======
+	window.draw(level1);
+	window.draw(ground);
+//	window.draw(rec);
+
+	//projectile.setPosition(bulletpos);
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+	  projectile.setPosition(bulletpos);
+	  window.draw(projectile);
+	  bulletpos.x += 20;
+	}
+	if (!(sf::Mouse::isButtonPressed(sf::Mouse::Left)))
+	{
+	  bulletpos.x = player.getPosition().x;
+	  bulletpos.y = player.getPosition().y - 60;
+	}
+
+
+>>>>>>> master
 	enemy.Draw(window);
 	player.Draw(window);
 
 	window.setView(view);
 	window.display();
+
+	
     }
 	
     window.close();

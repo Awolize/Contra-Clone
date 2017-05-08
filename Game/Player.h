@@ -16,11 +16,13 @@ public:
     void Draw(sf::RenderWindow& window) override;
 
     sf::Vector2f getPosition() { return body.getPosition(); }
+    sf::Vector2f velocity;
 
+    
 private:
     int row{ 0 };
     Animation animation;
-    sf::Vector2f velocity;
+   
     bool canJump{ true };
     bool faceRight{ true };
 };
