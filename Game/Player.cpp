@@ -4,11 +4,12 @@
 #include <cmath>
 
 Player::Player(sf::Vector2f position, float health, float attackDamage, float movementSpeed, float jumpHeight,
-	sf::Texture* texture, sf::Vector2i imageCount, float switchTime)
+	sf::Texture* playerTexture, sf::Vector2i imageCount, float switchTime, sf::Texture* bulletTexture)
 	: Characters(position, health, attackDamage, movementSpeed, jumpHeight),
-	animation(texture, imageCount, switchTime)
+	animation(playerTexture, imageCount, switchTime)
 {
-	body.setTexture(texture);
+	body.setTexture(playerTexture);
+	bullet.setTexture(bulletTexture);
 }
 
 Player::~Player()
@@ -32,13 +33,14 @@ void Player::Update(float deltaTime)
 
 		velocity.y = -sqrtf(2.0f * 982.0f * jumpHeight);
 	}
-	//    velocity.y += 982.0f;
+	
+	// velocity.y += 982.0f;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::L))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		isFiring = true;
 	}
-	
+
 
 	if (velocity.x == 0.0f)
 		if (faceRight == true)
@@ -58,37 +60,51 @@ void Player::Update(float deltaTime)
 			faceRight = false;
 		}
 	}
+	if (reloadTime > 0)
+		reloadTime++;
+	if (reloadTime > 100)
+		reloadTime = 0;
 
-	if (isFiring == true)
+
+	if ( isFiring == true && reloadTime == 0 )
 	{
-		bullet.setPosition(sf::Vector2f(body.getPosition().x + 10.0f, body.getPosition().y));
-		BulletArray.push_back(bullet);
+		if (faceRight)
+		{
+			gunPlacementX = body.getPosition().x + 45;
+			bullet.faceRight = true;
+		}
+		else
+		{
+			gunPlacementX = body.getPosition().x - 55;
+			bullet.faceRight = false;
+		}
+		bullet.setPosition(sf::Vector2f(gunPlacementX, body.getPosition().y + 5));
+		bulletArray.push_back(bullet);
+		reloadTime++;
 	}
 
-
-	for (Bullet& projectile : BulletArray)
+	for (Bullet& bullet : bulletArray)
 		bullet.Update(deltaTime);
 
 	animation.Update(row, deltaTime);
 	body.setTextureRect(animation.xyRect);
 	body.move(velocity * deltaTime);
+
+	// Map Border (x-axis)
+	if (body.getPosition().x < 15)
+		body.setPosition(15, getPosition().y);
 }
 
 void Player::Draw(sf::RenderWindow & window)
 {
-	for (Bullet& projectile : BulletArray)
-		bullet.Draw(window);
-
 	window.draw(body);
+
+	for (Bullet& bullet : bulletArray)
+		bullet.Draw(window);
 }
 
-void Player::CheckCollision(Bullet bullet)
+void Player::CheckCollision(Enemy & enemy)
 {
-	if (bullet.getRight() > body.getPosition().x &&
-		bullet.getTop() < body.getPosition().y + body.getSize().y &&
-		bullet.getBottom() > body.getPosition().y)
-	{
-		bullet.setBulletHit(true);
-		body.setPosition(sf::Vector2f(0, 10000));
-	}
+	for (Bullet& bullet : bulletArray)
+		enemy.CheckCollision(bullet);
 }

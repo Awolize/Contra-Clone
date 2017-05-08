@@ -12,13 +12,16 @@ using namespace std;
 int main()
 {
     // Init
-    sf::RenderWindow window(sf::VideoMode(1024, 768), "Contra", sf::Style::Close | sf::Style::Resize);
+    sf::RenderWindow window(sf::VideoMode(1024, 581), "Contra", sf::Style::Close | sf::Style::Resize);
     sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(1024.0f, 768.0f));
 
     window.setKeyRepeatEnabled(false);
     window.setVerticalSyncEnabled(true);
 
     // Define Textures
+	sf::Texture bullet;
+	bullet.loadFromFile("images/bullet.png");
+
     sf::Texture playerTexture;
     playerTexture.loadFromFile("images/playerTexture.png");
 
@@ -31,7 +34,7 @@ int main()
 
     // Define Objects	
     Enemy enemy(sf::Vector2f(400, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
-    Player player(sf::Vector2f(200, 0), 100, 100, 400, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
+    Player player(sf::Vector2f(200, 0), 100, 100, 400, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f, &bullet);
 	std::vector<Bullet> bulletVector;
     
     sf::RectangleShape ground(sf::Vector2f(2000.0f, 40.0f));
@@ -75,9 +78,11 @@ int main()
 	enemy.Update(deltaTime);
 	player.Update(deltaTime);
 
-	view.setCenter(player.getPosition().x, 0);
+	player.CheckCollision(enemy);
+
+	view.setCenter(player.getPosition().x, 85);
 // Objects rendered before clear will not be visible
-	window.clear();
+	window.clear(sf::Color(200, 0, 0));
 //-----------------------------
 	window.draw(level1);
 	window.draw(ground);

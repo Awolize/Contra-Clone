@@ -6,30 +6,35 @@
 #include "Characters.h"
 #include "Collider.h"
 #include "Bullet.h"
+#include "Enemy.h"
 
 class Player : public Characters
 {
 public:
-    Player(sf::Vector2f position, float health, float attackDamage, float movementSpeed, float jumpHeight,
-	   sf::Texture* texture, sf::Vector2i imageCount, float switchTime);
-    ~Player();
+	Player(sf::Vector2f position, float health, float attackDamage, float movementSpeed, float jumpHeight,
+		sf::Texture* playerTexture, sf::Vector2i imageCount, float switchTime, sf::Texture* bulletTexture);
+	~Player();
 
-    void Update(float deltaTime) override;
-    void Draw(sf::RenderWindow& window) override;
+	void Update(float deltaTime) override;
+	void Draw(sf::RenderWindow& window) override;
 
-    sf::Vector2f getPosition() { return body.getPosition(); }
+	sf::Vector2f getPosition() { return body.getPosition(); }
 	Collider Collision() { return Collider(body); }
-	void CheckCollision(Bullet bullet);
+	void CheckCollision(Enemy & enemy);
 
 private:
-    int row{ 0 };
-    Animation animation;
-    sf::Vector2f velocity;
-    bool canJump{ true };
-    bool faceRight{ true };
+	int row{ 0 };
+	Animation animation;
+	sf::Vector2f velocity;
+	bool canJump{ true };
+	bool faceRight{ true };
 	bool isFiring{ false };
-	std::vector<Bullet> BulletArray;
+
+	// Gun
+	std::vector<Bullet> bulletArray;
 	Bullet bullet;
+	float gunPlacementX{ body.getPosition().x + 60 };
+	int reloadTime{ 0 };
 };
 
 #endif
