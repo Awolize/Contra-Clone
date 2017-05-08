@@ -29,17 +29,28 @@ void Player::Update(float deltaTime)
   // if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
   // collision = false;;
 
-
-
-
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+  if(jumpingFloor < jumpingRoof)
   {
-      
-    velocity.y = -sqrtf(2.0f * 982.0f * jumpHeight);
-
-    canJump = false;
+    jumpingFloor++;
+  }
+  else
+  {
+    canJump = true;
+    jumpingFloor = 0;
   }
 
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && canJump)
+  {
+    
+      velocity.y = -sqrtf(2.0f * 982.0f * jumpHeight)*3;
+
+      canJump = false;
+      jumpingFloor++;
+  }
+
+
+
+  
   velocity.y += 982.0f * deltaTime;
     
   if (velocity.x == 0.0f)

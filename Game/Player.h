@@ -18,7 +18,8 @@ public:
     sf::Vector2f getPosition() { return body.getPosition(); }
     sf::Vector2f velocity;
 
-    
+  int jumpingFloor{0};
+  int jumpingRoof{100};
 private:
     int row{ 0 };
     Animation animation;
