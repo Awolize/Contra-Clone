@@ -45,7 +45,6 @@ void Player::Update(float deltaTime)
       velocity.y = -sqrtf(2.0f * 982.0f * jumpHeight)*3;
 
       canJump = false;
-      jumpingFloor++;
   }
 
 
