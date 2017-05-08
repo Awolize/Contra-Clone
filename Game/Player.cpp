@@ -14,6 +14,7 @@ Player::~Player()
 {
 }
 
+
 void Player::Update(float deltaTime)
 {
   velocity.x = 0.0f;
@@ -28,6 +29,9 @@ void Player::Update(float deltaTime)
   // if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
   // collision = false;;
 
+
+
+
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
   {
       
@@ -39,10 +43,16 @@ void Player::Update(float deltaTime)
   velocity.y += 982.0f * deltaTime;
     
   if (velocity.x == 0.0f)
+  {
     if (faceRight == true)
+    {
       row = 0;
-    else	
+    }
+    else
+    {	
       row = 1;
+    }
+  }
   else
   {
     if (velocity.x > 0.0f)
