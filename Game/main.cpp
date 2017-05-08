@@ -8,8 +8,6 @@
 #include "Collision.h"
 
 
-
-
 using namespace std;
 
 int main()
@@ -28,8 +26,6 @@ int main()
     sf::Texture background;
     background.loadFromFile("images/7680.png");
 
-<<<<<<< HEAD
-=======
     sf::Texture bullet;
     bullet.loadFromFile("images/bullet.png");
 
@@ -43,26 +39,13 @@ int main()
     //projectile.scale(sf::Vector2f(1.5f, 3.f));
 
 
->>>>>>> master
     sf::Sprite level1;
     level1.setTexture(background);
     level1.setOrigin(500.0f, 300.0f);
 
     // Objects	
-<<<<<<< HEAD
-    sf::RectangleShape rec(sf::Vector2f(40.0f, 40.0f)); 
-    rec.setOrigin(10.0f, 20.0f); 
-    rec.setFillColor(sf::Color::Red);
-    
-    sf::RectangleShape ground(sf::Vector2f(2000.0f, 40.0f));
-    ground.setOrigin(200, -290);
-    ground.setFillColor(sf::Color::Green);
-
-    Enemy enemy(sf::Vector2f(400, 400), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 2), 0.2f);
-=======
     Enemy enemy(sf::Vector2f(400, 400), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
     Player player(sf::Vector2f(200, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f);
->>>>>>> origin/aleer778
 
 
     sf::RectangleShape rec(sf::Vector2f(40.0f, 40.0f)); 
@@ -116,14 +99,6 @@ int main()
 	window.clear();
 	checkCollision(player, ground, deltaTime);
 //-----------------------------
-<<<<<<< HEAD
-<<<<<<< HEAD
-	window.draw(level1);
-	window.draw(ground);
-	window.draw(rec);
-=======
->>>>>>> origin/aleer778
-=======
 	window.draw(level1);
 	window.draw(ground);
 //	window.draw(rec);
@@ -143,7 +118,6 @@ int main()
 	}
 
 
->>>>>>> master
 	enemy.Draw(window);
 	player.Draw(window);
 
