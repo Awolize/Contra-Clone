@@ -21,7 +21,6 @@ public:
 
 	bool faceRight;
 
-
 private:
 	sf::RectangleShape body;
 	float velocity{ 500 };

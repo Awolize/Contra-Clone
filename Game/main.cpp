@@ -5,7 +5,7 @@
 #include "Enemy.h"
 #include "Entity.h"
 #include "Player.h"
-#include "Collider.h"
+// #include "Collider.h"
 #include "Platform.h"
 
 using namespace std;
