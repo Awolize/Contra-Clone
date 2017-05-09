@@ -1,9 +1,9 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 #include <SFML/Graphics.hpp>
-#include "Characters.h"
 #include "Animation.h"
 #include "Characters.h"
+#include "Collider.h"
 #include "Bullet.h"
 #include <iostream>
 #include <vector>

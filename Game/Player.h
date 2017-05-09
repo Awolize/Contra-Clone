@@ -1,15 +1,15 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <SFML/Graphics.hpp>
-#include "Characters.h"
 #include "Animation.h"
 #include "Characters.h"
 #include "Bullet.h"
+#include "Collider.h"
+#include "Enemy.h"
 #include <iostream>
 #include <vector>
 #include <cmath>
-#include "Entity.h"
-#include "Enemy.h"
+
 
 class Player : public Characters
 {
@@ -36,7 +36,7 @@ private:
     std::vector<Bullet> bulletArray;
     Bullet bullet;
     float gunPlacementX{ body.getPosition().x + 60 };
-    int reloadTime{ 0 };
+    float reloadTime{ 0 };
 
     // Jump
     sf::Vector2f velocity;
