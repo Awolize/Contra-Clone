@@ -1,0 +1,21 @@
+#include "Collision.h"
+#include <SFML/Graphics.hpp>
+
+bool ifCollision(sf::FloatRect & firstBox,sf::FloatRect & secondBox)
+{
+    if (firstBox.intersects(secondBox))
+	return false;
+    else
+	return true;    
+
+}
+
+void checkCollision(sf::RectangleShape & firstBox, sf::RectangleShape & secondBox, float & deltatime)
+{
+    sf::FloatRect tempBox1 = firstBox.getGlobalBounds();
+    sf::FloatRect tempBox2 = secondBox.getGlobalBounds();
+    if(ifCollision(tempBox1, tempBox2))
+	firstBox.move(0 ,0);
+    else
+	firstBox.move(50*deltatime, 50*deltatime);
+}

@@ -4,20 +4,43 @@
 #include "Characters.h"
 #include "Animation.h"
 #include "Characters.h"
+#include "Bullet.h"
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include "Entity.h"
+#include "Enemy.h"
 
 class Player : public Characters
 {
 public:
     Player(sf::Vector2f position, float health, float attackDamage, float movementSpeed, float jumpHeight,
-	   sf::Texture* texture, sf::Vector2i imageCount, float switchTime);
+	   sf::Texture* playerTexture, sf::Vector2i imageCount, float switchTime, sf::Texture* bulletTexture);
     ~Player();
 
-    void Update(int deltaTime) override;
+    void Update(float deltaTime) override;
     void Draw(sf::RenderWindow& window) override;
+
+    sf::Vector2f getPosition() { return body.getPosition(); };
+    void CheckIfHit(Bullet & bullet);
+    void CheckHitEnemy(Enemy & enemy);
 
 private:
     int row{ 0 };
     Animation animation;
+    bool hit{ false };
+    bool faceRight{ true };
+    bool isFiring{ false };
+
+    // Gun
+    std::vector<Bullet> bulletArray;
+    Bullet bullet;
+    float gunPlacementX{ body.getPosition().x + 60 };
+    int reloadTime{ 0 };
+
+    // Jump
+    sf::Vector2f velocity;
+    bool canJump;
 };
 
 #endif

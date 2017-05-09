@@ -10,7 +10,7 @@ public:
     ~Characters();
 
     // Var
-private:
+public:
     float health{ 100.0f };
     float attackDamage{ 100.0f };
     float movementSpeed{ 100.0f };

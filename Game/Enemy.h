@@ -3,6 +3,12 @@
 #include <SFML/Graphics.hpp>
 #include "Characters.h"
 #include "Animation.h"
+#include "Characters.h"
+#include "Bullet.h"
+#include <iostream>
+#include <vector>
+#include <cmath>
+
 
 class Enemy : public Characters
 {
@@ -11,12 +17,16 @@ public:
 	  sf::Texture* texture, sf::Vector2i imageCount, float switchTime);
     ~Enemy();
 
-    void Update(int deltaTime) override;
+    void Update(float deltaTime) override;
     void Draw(sf::RenderWindow& window) override;
+
+    sf::Vector2f getPosition() { return body.getPosition(); };
+    void CheckIfHit(Bullet & bullet);
 
 private:
     int row{ 0 };
     Animation animation;
+    bool hit{ false };
 };
 
 #endif
