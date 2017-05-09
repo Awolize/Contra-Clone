@@ -13,7 +13,7 @@ public:
 public:
     float health{ 100.0f };
     float attackDamage{ 100.0f };
-    float movementSpeed{ 500.0f };
+    float movementSpeed{ 100.0f };
     float jumpHeight{ 10.0f };
 };
 
