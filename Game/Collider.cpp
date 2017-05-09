@@ -2,10 +2,10 @@
 
 
 
-Collider::Collider(sf::RectangleShape body)
+Collider::Collider(sf::RectangleShape & body) :
+	body(body)
 {
 }
-
 
 Collider::~Collider()
 {

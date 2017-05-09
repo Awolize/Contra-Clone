@@ -10,10 +10,10 @@ public:
 	void Update(float deltaTime);
 	void Draw(sf::RenderWindow & window);
 
-	float getRight() { return body.getPosition().x + body.getSize().x; }
-	float getLeft() { return body.getPosition().x; }
-	float getTop() { return body.getPosition().y; }
-	float getBottom() { return body.getPosition().y + body.getSize().y; }
+	float getGravityPositionX() { return body.getPosition().x; }
+	float getGravityPositionY() { return body.getPosition().y; }
+	float getSizeX() { return body.getSize().y; }
+	float getSizeY() { return body.getSize().x; }
 	void setTexture(sf::Texture * texture) { body.setTexture(texture); }
 	void setBulletHit(bool tmp) { bulletHit = tmp; }
 
@@ -24,7 +24,11 @@ public:
 
 private:
 	sf::RectangleShape body;
-	float velocity{ 600 };
+	float velocity{ 500 };
 	bool bulletHit{ false };
+	bool animationExplosion{ true };
+	int explosionTime{ 0 };
+	sf::Sprite spriteExplosion;
+	sf::Texture explosion;
 };
 
