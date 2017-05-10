@@ -31,7 +31,7 @@ void Player::Update(float deltaTime)
 		velocity.y = -sqrtf(2.0f * 982.0f * jumpHeight);
 	}
 
-	// velocity.y += 982.0f;
+	velocity.y += 982.0f * deltaTime;
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
@@ -88,7 +88,7 @@ void Player::Update(float deltaTime)
 			if ((body.getPosition().x + 300.0f < bullet.getGravityPositionX()) || (body.getPosition().y + 200.0f < bullet.getGravityPositionY()))
 				bullet.setBulletHit(true);
 		}
-		else if(!bullet.faceRight)
+		else if (!bullet.faceRight)
 		{
 			if ((body.getPosition().x - 300.0f > bullet.getGravityPositionX()) || (body.getPosition().y - 200.0f > bullet.getGravityPositionY()))
 				bullet.setBulletHit(true);
@@ -133,5 +133,29 @@ void Player::CheckHitEnemy(Enemy & enemy)
 {
 	for (Bullet& bullet : bulletArray)
 		enemy.CheckIfHit(bullet);
+}
+
+void Player::OnCollision(sf::Vector2f direction)
+{
+	if (direction.x < 0.0f) // Collision on the left.
+	{
+		velocity.x = 0.0f;
+		canJump = false;
+	}
+	else if (direction.x > 0.0f) // Collision on the right.
+	{
+		velocity.x = 0.0f;
+		canJump = false;
+	}
+	else if (direction.y < 0.0f) // Collision on the bottom.
+	{
+		velocity.y = 0.0f;
+		canJump = true;
+	}
+	else if (direction.y > 0.0f) // Collision on the top.
+	{
+		velocity.y = 0.0f;
+		canJump = false;
+	}
 }
 

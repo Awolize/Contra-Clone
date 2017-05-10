@@ -25,6 +25,9 @@ public:
     void CheckIfHit(Bullet & bullet);
     void CheckHitEnemy(Enemy & enemy);
 
+	Collider GetCollider() { return Collider(body); };
+	void OnCollision(sf::Vector2f direction);
+
 private:
     int row{ 0 };
     Animation animation;

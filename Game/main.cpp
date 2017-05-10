@@ -45,13 +45,15 @@ int main()
 	enemyArray.push_back(Enemy(sf::Vector2f(1600, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f));
 	enemyArray.push_back(Enemy(sf::Vector2f(1800, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f));
 
-	Player player(sf::Vector2f(200, 0), 100, 100, 400, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f, &bullet);
+	Player player(sf::Vector2f(200, -500), 100, 100, 400, 200, &playerTexture, sf::Vector2i(3, 4), 0.2f, &bullet);
 	std::vector<Bullet> bulletVector;
 
 	// Platform Vector Array
 	std::vector<Platform> platformArray;
-//	Platform(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position);
+	//	Platform(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position);
 	platformArray.push_back(Platform(nullptr, sf::Vector2f(2000.0f, 3.0f), sf::Vector2f(570, 53)));
+	platformArray.push_back(Platform(nullptr, sf::Vector2f(100.0f, 3.0f), sf::Vector2f(700, -50)));
+	platformArray.push_back(Platform(nullptr, sf::Vector2f(100.0f, 3.0f), sf::Vector2f(400, -100)));
 
 	float deltaTime = 0.0f;
 	sf::Clock clock;
@@ -84,36 +86,41 @@ int main()
 					cout << "ASCII chaaracter typed: " << static_cast<char>(event.text.unicode) << endl;
 			}
 		}
-
-		// Update objects
+		//-------------Update---------------
 		player.Update(deltaTime);
-
+		sf::Vector2f direction;
 		for (Enemy& enemy : enemyArray)
 		{
 			enemy.Update(deltaTime);
 			player.CheckHitEnemy(enemy);
+			for (Platform& platform : platformArray)
+			{
+				Collider temp = enemy.GetCollider();
+				if (platform.GetCollider().CheckCollision(temp, direction, 1.0f))
+					enemy.OnCollision(direction);
+			}
+		}
+		for (Platform & platform : platformArray)
+		{
+			Collider temp = player.GetCollider();
+			if (platform.GetCollider().CheckCollision(temp, direction, 1.0f))
+				player.OnCollision(direction);
 		}
 
-		sf::Vector2f direction;
-		
+		//-------------View-----------------
 		setview = player.getPosition().x;
 		if (player.getPosition().x < 15)
 			setview = 15;
-
 		view.setCenter(setview, 85);
-		// Objects rendered before clear will not be visible
+		//-------------Clear----------------
 		window.clear(sf::Color(200, 0, 0));
-		//-----------------------------
+		//-------------Draw-----------------
 		window.draw(level1);
-
 		for (Enemy& enemy : enemyArray)
 			enemy.Draw(window);
-
 		player.Draw(window);
-
 		for (Platform& platform : platformArray)
 			platform.Draw(window);
-
 		window.setView(view);
 		window.display();
 	}
