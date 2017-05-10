@@ -1,4 +1,7 @@
 #include "Bullet.h"
+#include <iostream>
+
+using namespace std;
 
 Bullet::Bullet()
 {
@@ -26,10 +29,20 @@ void Bullet::Draw(sf::RenderWindow & window)
 void Bullet::Update(float deltaTime)
 {
 	if (bulletHit == false)
+	{
+		float temp = time.asSeconds();
+		temp -= deltaTime;
+		time = sf::seconds(temp);
+
+		cout << time.asSeconds() << endl;
+
+		if (time.asSeconds() < 0)
+			bulletHit = true;
 		if (faceRight)
 			body.move(velocity * deltaTime, 0);
 		else
 			body.move(-velocity * deltaTime, 0);
+	}
 	else
 	{		
 		explosionTime++;

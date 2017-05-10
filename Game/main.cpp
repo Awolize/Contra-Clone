@@ -51,7 +51,7 @@ int main()
 	// Platform Vector Array
 	std::vector<Platform> platformArray;
 	//	Platform(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position);
-	platformArray.push_back(Platform(nullptr, sf::Vector2f(2000.0f, 3.0f), sf::Vector2f(570, 53)));
+	platformArray.push_back(Platform(nullptr, sf::Vector2f(2000.0f, 3.0f), sf::Vector2f(570, 57)));
 	platformArray.push_back(Platform(nullptr, sf::Vector2f(100.0f, 3.0f), sf::Vector2f(700, -50)));
 	platformArray.push_back(Platform(nullptr, sf::Vector2f(100.0f, 3.0f), sf::Vector2f(400, -100)));
 
@@ -89,11 +89,11 @@ int main()
 		//-------------Update---------------
 		player.Update(deltaTime);
 		sf::Vector2f direction;
-		for (Enemy& enemy : enemyArray)
+		for (Enemy & enemy : enemyArray)
 		{
 			enemy.Update(deltaTime);
 			player.CheckHitEnemy(enemy);
-			for (Platform& platform : platformArray)
+			for (Platform & platform : platformArray)
 			{
 				Collider temp = enemy.GetCollider();
 				if (platform.GetCollider().CheckCollision(temp, direction, 1.0f))

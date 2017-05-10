@@ -29,5 +29,7 @@ private:
 	int explosionTime{ 0 };
 	sf::Sprite spriteExplosion;
 	sf::Texture explosion;
+
+	sf::Time time = sf::seconds(0.7);
 };
 

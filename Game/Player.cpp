@@ -83,7 +83,7 @@ void Player::Update(float deltaTime)
 	for (Bullet& bullet : bulletArray)
 	{
 		bullet.Update(deltaTime);
-		if (bullet.faceRight)
+/*		if (bullet.faceRight)
 		{
 			if ((body.getPosition().x + 300.0f < bullet.getGravityPositionX()) || (body.getPosition().y + 200.0f < bullet.getGravityPositionY()))
 				bullet.setBulletHit(true);
@@ -93,6 +93,7 @@ void Player::Update(float deltaTime)
 			if ((body.getPosition().x - 300.0f > bullet.getGravityPositionX()) || (body.getPosition().y - 200.0f > bullet.getGravityPositionY()))
 				bullet.setBulletHit(true);
 		}
+*/
 	}
 
 	animation.Update(row, deltaTime);
@@ -154,8 +155,8 @@ void Player::OnCollision(sf::Vector2f direction)
 	}
 	else if (direction.y > 0.0f) // Collision on the top.
 	{
-		velocity.y = 0.0f;
-		canJump = false;
+//		velocity.y = 0.0f;
+		 canJump = false;
 	}
 }
 
