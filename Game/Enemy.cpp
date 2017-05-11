@@ -17,8 +17,9 @@ void Enemy::Update(float deltaTime)
 {
     if (hit == false)
     {
-	animation.Update(row, deltaTime);
-	body.setTextureRect(animation.xyRect);
+		velocity.y += 982.0f;
+		animation.Update(row, deltaTime);
+		body.setTextureRect(animation.xyRect);
     }
 }
 
@@ -40,4 +41,24 @@ void Enemy::CheckIfHit(Bullet & bullet)
 	hit = true;
 	body.setPosition(sf::Vector2f(5000, 5000));
     }
+}
+
+void Enemy::OnCollision(sf::Vector2f direction)
+{
+	if (direction.x < 0.0f) // Collision on the left.
+	{
+		velocity.x = 0.0f;
+	}
+	else if (direction.x > 0.0f) // Collision on the right.
+	{
+		velocity.x = 0.0f;
+	}
+	else if (direction.y < 0.0f) // Collision on the bottom.
+	{
+		velocity.y = 0.0f;
+	}
+	else if (direction.y > 0.0f) // Collision on the top.
+	{
+		velocity.x = 0.0f;
+	}
 }

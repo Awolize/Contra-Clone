@@ -23,10 +23,14 @@ public:
     sf::Vector2f getPosition() { return body.getPosition(); };
     void CheckIfHit(Bullet & bullet);
 
+	Collider GetCollider() { return Collider(body); };
+	void OnCollision(sf::Vector2f direction);
+
 private:
     int row{ 0 };
     Animation animation;
     bool hit{ false };
+	sf::Vector2f velocity;
 };
 
 #endif
