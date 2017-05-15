@@ -7,8 +7,6 @@ Player::Player(sf::Vector2f position, float health, float attackDamage, float mo
 {
 	body.setTexture(playerTexture);
 	bullet.setTexture(bulletTexture);
-	std::cout << "Player Body Origin (x, y): " << body.getOrigin().x << " " << body.getOrigin().y << std::endl;
-	std::cout << "Player Body Size   (x, y): " << body.getSize().x << " " << body.getSize().y << std::endl;
 }
 
 Player::~Player()
@@ -64,6 +62,7 @@ void Player::Update(float deltaTime)
 	if (reloadTime > 20)
 		reloadTime = 0;
 
+
 	if (isFiring == true && reloadTime == 0)
 	{
 		if (faceRight)
@@ -84,6 +83,17 @@ void Player::Update(float deltaTime)
 	for (Bullet& bullet : bulletArray)
 	{
 		bullet.Update(deltaTime);
+/*		if (bullet.faceRight)
+		{
+			if ((body.getPosition().x + 300.0f < bullet.getGravityPositionX()) || (body.getPosition().y + 200.0f < bullet.getGravityPositionY()))
+				bullet.setBulletHit(true);
+		}
+		else if (!bullet.faceRight)
+		{
+			if ((body.getPosition().x - 300.0f > bullet.getGravityPositionX()) || (body.getPosition().y - 200.0f > bullet.getGravityPositionY()))
+				bullet.setBulletHit(true);
+		}
+*/
 	}
 
 	animation.Update(row, deltaTime);
@@ -97,29 +107,10 @@ void Player::Update(float deltaTime)
 
 void Player::Draw(sf::RenderWindow & window)
 {
-	if (lives > 0)
-	{
-		window.draw(body);
-	}
+	window.draw(body);
+
 	for (Bullet& bullet : bulletArray)
 		bullet.Draw(window);
-}
-
-// velocity = 0 in the collision direction 
-void Player::OnCollision(sf::Vector2f direction)
-{
-	if (direction.x < 0.0f || direction.x > 0.0f) // Collision on the left.
-	{
-		velocity.x = 0.0f;
-		canJump = false;
-	}
-	else if (direction.y < 0.0f || direction.y > 0.0f) // Collision on the bottom.
-	{
-		velocity.y = 0.0f;
-		canJump = false;
-		if (direction.y < 0.0f)
-			canJump = true;
-	}
 }
 
 void Player::CheckIfHit(Bullet & bullet)
@@ -134,11 +125,38 @@ void Player::CheckIfHit(Bullet & bullet)
 		)
 	{
 		bullet.setBulletHit(true);
-		body.setPosition(sf::Vector2f(200, -500));
-		lives--;
+		hit = true;
+		body.setPosition(sf::Vector2f(5000, 5000));
+	}
+}
+
+void Player::CheckHitEnemy(Enemy & enemy)
+{
+	for (Bullet& bullet : bulletArray)
+		enemy.CheckIfHit(bullet);
+}
+
+void Player::OnCollision(sf::Vector2f direction)
+{
+	if (direction.x < 0.0f) // Collision on the left.
+	{
 		velocity.x = 0.0f;
+		canJump = false;
+	}
+	else if (direction.x > 0.0f) // Collision on the right.
+	{
+		velocity.x = 0.0f;
+		canJump = false;
+	}
+	else if (direction.y < 0.0f) // Collision on the bottom.
+	{
 		velocity.y = 0.0f;
 		canJump = true;
+	}
+	else if (direction.y > 0.0f) // Collision on the top.
+	{
+//		velocity.y = 0.0f;
+		 canJump = false;
 	}
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Collider.h"
 
 class Bullet
 {
@@ -17,9 +16,9 @@ public:
 	float getSizeY() { return body.getSize().x; }
 	void setTexture(sf::Texture * texture) { body.setTexture(texture); }
 	void setBulletHit(bool tmp) { bulletHit = tmp; }
+
 	void setPosition(sf::Vector2f newPosition) { body.setPosition(newPosition); };
 
-	Collider GetCollider() { return Collider(body); };
 	bool faceRight;
 
 private:
