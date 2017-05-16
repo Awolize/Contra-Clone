@@ -42,6 +42,18 @@ int main()
     level1.setTexture(background);
     level1.setOrigin(500.0f, 300.0f);
 
+
+    sf::Font font;
+    font.loadFromFile("images/SMLFATMARKER.ttf");
+    sf::Text text;
+    text.setFont(font);
+    text.setString("Level 1");
+    text.setCharacterSize(100);
+    text.setColor(sf::Color::Red);
+    text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+
+    sf::Clock textTime;
+
     // Define Objects	
     float setview;
     std::vector<Enemy> enemyArray;
@@ -185,13 +197,26 @@ int main()
 	window.clear(sf::Color(200, 0, 0));
 	//-------------Draw-----------------
 	window.draw(level1);
+
+	sf::Time elapsed = textTime.getElapsedTime();
+        cout << elapsed.asSeconds() << std::endl;
+
+	if(elapsed.asSeconds() < 3.0)
+	  window.draw(text);
+
 	for (Enemy& enemy : enemyArray)
 	    enemy.Draw(window);
+
 	player.Draw(window);
+
 	for (Platform& platform : platformArray)
 	    platform.Draw(window);
 		
 	window.display();
+
+
+
+
     }
 
     window.close();
