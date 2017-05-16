@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include <vector>
 #include "Characters.h"
@@ -18,6 +19,12 @@ int main()
 
     window.setKeyRepeatEnabled(false);
     window.setVerticalSyncEnabled(true);
+
+
+    sf::Music music;
+    music.openFromFile("music/level1.ogg");
+    music.play();
+
 
     // Define Textures
     sf::Texture bullet;
@@ -61,13 +68,13 @@ int main()
     std::vector<Enemy> enemyArray;
     enemyArray.push_back(Enemy(sf::Vector2f(700, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
      enemyArray.push_back(Enemy(sf::Vector2f(1200, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
-     /* enemyArray.push_back(Enemy(sf::Vector2f(800, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
-    enemyArray.push_back(Enemy(sf::Vector2f(1000, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
-    enemyArray.push_back(Enemy(sf::Vector2f(1200, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
-    enemyArray.push_back(Enemy(sf::Vector2f(1400, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
-    enemyArray.push_back(Enemy(sf::Vector2f(1600, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
-    enemyArray.push_back(Enemy(sf::Vector2f(1800, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
-    */
+      enemyArray.push_back(Enemy(sf::Vector2f(1500, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
+    enemyArray.push_back(Enemy(sf::Vector2f(2500, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
+    enemyArray.push_back(Enemy(sf::Vector2f(2900, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
+    enemyArray.push_back(Enemy(sf::Vector2f(3500, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
+    enemyArray.push_back(Enemy(sf::Vector2f(3900, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
+    enemyArray.push_back(Enemy(sf::Vector2f(4500, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
+    
     Player player(sf::Vector2f(200, -500), 100, 100, 400, 200, &playerTexture, sf::Vector2i(3, 4), 0.2f, &bullet);
     std::vector<Bullet> bulletVector;
 
@@ -156,12 +163,9 @@ int main()
 
 	    for (Bullet & bullet : player.bulletArray)
 	    {
-	      if(enemy.fireMode == false)
-		{
 
 		enemy.CheckIfHit(bullet);
-
-		}
+       
 	    }
 
 	      for (Bullet & bullet : enemy.bulletArray)
@@ -232,10 +236,10 @@ int main()
 
 
 
-
     }
 
     window.close();
+    music.stop();
 
     return 0;
 }

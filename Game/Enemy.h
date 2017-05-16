@@ -13,23 +13,23 @@
 class Enemy : public Characters
 {
 public:
-    Enemy(sf::Vector2f position, float health, float attackDamage, float movementSpeed, float jumpHeight,
-	  sf::Texture* enemyTexture, sf::Vector2i imageCount, float switchTime, sf::Texture* bulletTexture);
-    ~Enemy();
+  Enemy(sf::Vector2f position, float health, float attackDamage, float movementSpeed, float jumpHeight,
+	sf::Texture* enemyTexture, sf::Vector2i imageCount, float switchTime, sf::Texture* bulletTexture);
+  ~Enemy();
 
   void Update(float deltaTime) override;
   void Draw(sf::RenderWindow& window) override;
   void Intelligence(sf::Vector2f distance);
 
-    sf::Vector2f getPosition() { return body.getPosition(); };
+  sf::Vector2f getPosition() { return body.getPosition(); };
 
-    // Collision with solid object (platforms..)
-    Collider GetCollider() { return Collider(body); };
-    void OnCollision(sf::Vector2f direction);
+  // Collision with solid object (platforms..)
+  Collider GetCollider() { return Collider(body); };
+  void OnCollision(sf::Vector2f direction);
 
-    // Hit / Bullets
-    void CheckIfHit(Bullet & bullet);
-    std::vector<Bullet> bulletArray;
+  // Hit / Bullets
+  void CheckIfHit(Bullet & bullet);
+  std::vector<Bullet> bulletArray;
 
   bool fireMode{ true };
 
