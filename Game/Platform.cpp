@@ -1,21 +1,13 @@
 #include "Platform.h"
 
 
-
-Platform::Platform(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position) : Entity(position)
+Platform::Platform(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position)
 {
 	body.setSize(size);
 	body.setTexture(texture);
 	body.setPosition(position);
 	body.setOrigin(size / 2.0f);
-}
-
-Platform::~Platform()
-{
-}
-
-void Platform::Update(float deltaTime)
-{
+//	body.setFillColor(sf::Color::Transparent);
 }
 
 void Platform::Draw(sf::RenderWindow & window)

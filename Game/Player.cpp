@@ -7,6 +7,8 @@ Player::Player(sf::Vector2f position, float health, float attackDamage, float mo
 {
     body.setTexture(playerTexture);
     bullet.setTexture(bulletTexture);
+    std::cout << "Player Body Origin (x, y): " << body.getOrigin().x << " " << body.getOrigin().y << std::endl;
+    std::cout << "Player Body Size   (x, y): " << body.getSize().x << " " << body.getSize().y << std::endl;
 }
 
 Player::~Player()
@@ -31,7 +33,7 @@ void Player::Update(float deltaTime)
 	velocity.y = -sqrtf(2.0f * 982.0f * jumpHeight);
     }
 
-    // velocity.y += 982.0f;
+    velocity.y += 982.0f * deltaTime;
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
@@ -58,68 +60,85 @@ void Player::Update(float deltaTime)
 	}
     }
     if (reloadTime > 0)
-	reloadTime++ * deltaTime;
+	reloadTime *= deltaTime;
     if (reloadTime > 20)
 	reloadTime = 0;
 
-
-    if (isFiring == true && reloadTime == 0)
-    {
-	if (faceRight)
+	if (isFiring == true && reloadTime == 0)
 	{
-	    gunPlacementX = body.getPosition().x + 55;
-	    bullet.faceRight = true;
+		if (faceRight)
+		{
+			gunPlacementX = body.getPosition().x + 55;
+			bullet.faceRight = true;
+		}
+		else
+		{
+			gunPlacementX = body.getPosition().x - 55;
+			bullet.faceRight = false;
+		}
+		bullet.setPosition(sf::Vector2f(gunPlacementX, body.getPosition().y + -15));
+		bulletArray.push_back(bullet);
+		reloadTime++;
 	}
-	else
+
+	for (Bullet& bullet : bulletArray)
 	{
-	    gunPlacementX = body.getPosition().x - 55;
-	    bullet.faceRight = false;
+		bullet.Update(deltaTime);
 	}
-	bullet.setPosition(sf::Vector2f(gunPlacementX, body.getPosition().y + -15));
-	bulletArray.push_back(bullet);
-	reloadTime++;
-    }
 
-    for (Bullet& bullet : bulletArray)
-	bullet.Update(deltaTime);
+	animation.Update(row, deltaTime);
+	body.setTextureRect(animation.xyRect);
+	body.move(velocity * deltaTime);
 
-    animation.Update(row, deltaTime);
-    body.setTextureRect(animation.xyRect);
-    body.move(velocity * deltaTime);
-
-    // Map Border (x-axis)
-    if (body.getPosition().x < -440)
-	body.setPosition(-440, body.getPosition().y);
+	// Map Border (x-axis)
+	if (body.getPosition().x < -440)
+		body.setPosition(-440, body.getPosition().y);
 }
 
 void Player::Draw(sf::RenderWindow & window)
 {
-    window.draw(body);
+	if (lives > 0)
+	{
+		window.draw(body);
+	}
+	for (Bullet& bullet : bulletArray)
+		bullet.Draw(window);
+}
 
-    for (Bullet& bullet : bulletArray)
-	bullet.Draw(window);
+// velocity = 0 in the collision direction 
+void Player::OnCollision(sf::Vector2f direction)
+{
+	if (direction.x < 0.0f || direction.x > 0.0f) // Collision on the left.
+	{
+		velocity.x = 0.0f;
+		canJump = false;
+	}
+	else if (direction.y < 0.0f || direction.y > 0.0f) // Collision on the bottom.
+	{
+		velocity.y = 0.0f;
+		canJump = false;
+		if (direction.y < 0.0f)
+			canJump = true;
+	}
 }
 
 void Player::CheckIfHit(Bullet & bullet)
 {
-    if (// X-Axis 
-	(bullet.getGravityPositionX() + (bullet.getSizeX() / 2) > body.getPosition().x - (body.getSize().x / 2) &&
-	 bullet.getGravityPositionX() - (bullet.getSizeX() / 2) < body.getPosition().x + (body.getSize().x / 2))
-	&&
-	// Y-Axis
-	(bullet.getGravityPositionY() + (bullet.getSizeY() / 2) > body.getPosition().y - (body.getSize().y / 2) &&
-	 bullet.getGravityPositionY() - (bullet.getSizeY() / 2) < body.getPosition().y + (body.getSize().y / 2))
-	)
-    {
-	bullet.setBulletHit(true);
-	hit = true;
-	body.setPosition(sf::Vector2f(5000, 5000));
-    }
-}
-
-void Player::CheckHitEnemy(Enemy & enemy)
-{
-    for (Bullet& bullet : bulletArray)
-	enemy.CheckIfHit(bullet);
+	if (// X-Axis 
+		(bullet.getGravityPositionX() + (bullet.getSizeX() / 2) > body.getPosition().x - (body.getSize().x / 2) &&
+			bullet.getGravityPositionX() - (bullet.getSizeX() / 2) < body.getPosition().x + (body.getSize().x / 2))
+		&&
+		// Y-Axis
+		(bullet.getGravityPositionY() + (bullet.getSizeY() / 2) > body.getPosition().y - (body.getSize().y / 2) &&
+			bullet.getGravityPositionY() - (bullet.getSizeY() / 2) < body.getPosition().y + (body.getSize().y / 2))
+		)
+	{
+		bullet.setBulletHit(true);
+		body.setPosition(sf::Vector2f(200, -500));
+		lives--;
+		velocity.x = 0.0f;
+		velocity.y = 0.0f;
+		canJump = true;
+	}
 }
 
