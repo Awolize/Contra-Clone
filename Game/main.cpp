@@ -7,6 +7,7 @@
 #include "Player.h"
 // #include "Collider.h"
 #include "Platform.h"
+#include "Bullet.h"
 
 using namespace std;
 
@@ -26,6 +27,9 @@ int main()
 	sf::Texture playerTexture;
 	playerTexture.loadFromFile("images/playerTexture.png");
 
+	sf::Texture enemyTexture;
+	enemyTexture.loadFromFile("images/playerTexture.png");
+
 	sf::Texture background;
 	background.loadFromFile("images/7680.png");
 
@@ -36,14 +40,14 @@ int main()
 	// Define Objects	
 	float setview;
 	std::vector<Enemy> enemyArray;
-	enemyArray.push_back(Enemy(sf::Vector2f(400, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f));
-	enemyArray.push_back(Enemy(sf::Vector2f(600, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f));
-	enemyArray.push_back(Enemy(sf::Vector2f(800, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f));
-	enemyArray.push_back(Enemy(sf::Vector2f(1000, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f));
-	enemyArray.push_back(Enemy(sf::Vector2f(1200, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f));
-	enemyArray.push_back(Enemy(sf::Vector2f(1400, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f));
-	enemyArray.push_back(Enemy(sf::Vector2f(1600, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f));
-	enemyArray.push_back(Enemy(sf::Vector2f(1800, 0), 100, 100, 10, 10, &playerTexture, sf::Vector2i(3, 4), 0.2f));
+	enemyArray.push_back(Enemy(sf::Vector2f(400, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
+	enemyArray.push_back(Enemy(sf::Vector2f(600, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
+	enemyArray.push_back(Enemy(sf::Vector2f(800, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
+	enemyArray.push_back(Enemy(sf::Vector2f(1000, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
+	enemyArray.push_back(Enemy(sf::Vector2f(1200, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
+	enemyArray.push_back(Enemy(sf::Vector2f(1400, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
+	enemyArray.push_back(Enemy(sf::Vector2f(1600, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
+	enemyArray.push_back(Enemy(sf::Vector2f(1800, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
 
 	Player player(sf::Vector2f(200, -500), 100, 100, 400, 200, &playerTexture, sf::Vector2i(3, 4), 0.2f, &bullet);
 	std::vector<Bullet> bulletVector;
@@ -92,19 +96,39 @@ int main()
 		for (Enemy & enemy : enemyArray)
 		{
 			enemy.Update(deltaTime);
-			player.CheckHitEnemy(enemy);
+
+			for (Bullet & bullet : player.bulletArray)
+			{
+				enemy.CheckIfHit(bullet);
+			}
+			for (Bullet & bullet : enemy.bulletArray)
+			{
+				player.CheckIfHit(bullet);
+			}
+
 			for (Platform & platform : platformArray)
 			{
 				Collider temp = enemy.GetCollider();
 				if (platform.GetCollider().CheckCollision(temp, direction, 1.0f))
+				{
 					enemy.OnCollision(direction);
+				}
 			}
 		}
 		for (Platform & platform : platformArray)
 		{
 			Collider temp = player.GetCollider();
 			if (platform.GetCollider().CheckCollision(temp, direction, 1.0f))
+			{
 				player.OnCollision(direction);
+			}
+		}
+
+
+
+		for (Enemy & enemy : enemyArray)
+		{
+
 		}
 
 		//-------------View-----------------
@@ -112,6 +136,7 @@ int main()
 		if (player.getPosition().x < 15)
 			setview = 15;
 		view.setCenter(setview, 85);
+		window.setView(view);
 		//-------------Clear----------------
 		window.clear(sf::Color(200, 0, 0));
 		//-------------Draw-----------------
@@ -121,7 +146,7 @@ int main()
 		player.Draw(window);
 		for (Platform& platform : platformArray)
 			platform.Draw(window);
-		window.setView(view);
+		
 		window.display();
 	}
 

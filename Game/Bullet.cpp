@@ -1,5 +1,8 @@
 #include "Bullet.h"
+#include "Player.h"
+#include "Enemy.h"
 #include <iostream>
+
 
 using namespace std;
 
@@ -17,15 +20,6 @@ Bullet::~Bullet()
 {
 }
 
-void Bullet::Draw(sf::RenderWindow & window)
-{
-	spriteExplosion.setPosition(body.getPosition().x - 12.5, body.getPosition().y - 12.5);
-	if (bulletHit == false)
-		window.draw(body);
-	if (animationExplosion == true && bulletHit == true)
-		window.draw(spriteExplosion);
-}
-
 void Bullet::Update(float deltaTime)
 {
 	if (bulletHit == false)
@@ -33,8 +27,6 @@ void Bullet::Update(float deltaTime)
 		float temp = time.asSeconds();
 		temp -= deltaTime;
 		time = sf::seconds(temp);
-
-		cout << time.asSeconds() << endl;
 
 		if (time.asSeconds() < 0)
 			bulletHit = true;
@@ -44,10 +36,23 @@ void Bullet::Update(float deltaTime)
 			body.move(-velocity * deltaTime, 0);
 	}
 	else
-	{		
+	{
+		velocity = 0;
 		explosionTime++;
 		if (explosionTime == 20)
+		{
 			animationExplosion = false;
+			body.setPosition(sf::Vector2f(6000, 6000));
+		}
 	}
+}
+
+void Bullet::Draw(sf::RenderWindow & window)
+{
+	spriteExplosion.setPosition(body.getPosition().x - 12.5, body.getPosition().y - 12.5);
+	if (bulletHit == false)
+		window.draw(body);
+	if (animationExplosion == true && bulletHit == true)
+		window.draw(spriteExplosion);
 }
 

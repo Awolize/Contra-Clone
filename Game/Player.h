@@ -21,27 +21,30 @@ public:
     void Update(float deltaTime) override;
     void Draw(sf::RenderWindow& window) override;
 
-    sf::Vector2f getPosition() { return body.getPosition(); };
-    void CheckIfHit(Bullet & bullet);
-    void CheckHitEnemy(Enemy & enemy);
 
+    sf::Vector2f getPosition() { return body.getPosition(); };
+	
+	// Collision with solid object (platforms..)
 	Collider GetCollider() { return Collider(body); };
 	void OnCollision(sf::Vector2f direction);
+
+	// Hit / Bullets
+	void CheckIfHit(Bullet & bullet);
+	std::vector<Bullet> bulletArray;
 
 private:
     int row{ 0 };
     Animation animation;
-    bool hit{ false };
     bool faceRight{ true };
     bool isFiring{ false };
-
+	int lives{ 300 };
+	
     // Gun
-    std::vector<Bullet> bulletArray;
-    Bullet bullet;
+	Bullet bullet;
     float gunPlacementX{ body.getPosition().x + 60 };
     float reloadTime{ 0 };
 
-    // Jump
+    // Jump / movement
     sf::Vector2f velocity;
     bool canJump;
 };
