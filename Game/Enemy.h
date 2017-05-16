@@ -17,9 +17,9 @@ public:
 	  sf::Texture* enemyTexture, sf::Vector2i imageCount, float switchTime, sf::Texture* bulletTexture);
     ~Enemy();
 
-    void Update(float deltaTime) override;
-    void Draw(sf::RenderWindow& window) override;
-
+  void Update(float deltaTime) override;
+  void Draw(sf::RenderWindow& window) override;
+  void Intelligence(sf::Vector2f distance);
 
     sf::Vector2f getPosition() { return body.getPosition(); };
 
@@ -31,14 +31,16 @@ public:
     void CheckIfHit(Bullet & bullet);
     std::vector<Bullet> bulletArray;
 
-private:
-    int row{ 0 };
-    Animation animation;
-    bool faceRight{ true };
-    bool isFiring{ false };
-    int lives{ 3 };
+  bool fireMode{ true };
 
-    // Gun
+private:
+  int row{ 0 };
+  Animation animation;
+  bool faceRight{ true };
+  bool isFiring{ false };
+  int lives{ 3 };
+
+  // Gun
     Bullet bullet;
     float gunPlacementX{ body.getPosition().x + 60 };
     float reloadTime{ 0 };

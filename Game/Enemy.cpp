@@ -14,15 +14,53 @@ Enemy::~Enemy()
 {
 }
 
+void Enemy::Intelligence(sf::Vector2f distance)
+{
+  std::cout << distance.x << std::endl;
+  
+  if(distance.x < 200 && distance.x > 0)
+  {
+    isFiring = true;
+   
+    if(distance.x < 100)
+      movementSpeed = -40;
+    // velocity.x += 100;
+    fireMode = false;
+  }
+  else if(distance.x > 200 && distance.x < 300)
+  {
+    isFiring = false;
+    movementSpeed = 100;
+    fireMode = false;
+  }
+  else if(distance.x > 300)
+  {
+    movementSpeed = 0;
+    fireMode = true;
+  }
+
+  if(distance.x < 50)
+  {
+    canJump = true;
+  }
+
+  if(canJump)
+  {
+    // std::cout << "HEJ" << std::endl;
+    velocity.y = -sqrtf(2.0f * 982.0f * 100);
+    canJump = false;
+  }
+}
+
 void Enemy::Update(float deltaTime)
 {
     if (lives > 0)
     {
 	velocity.x = 0.0f;
-	isFiring = true;
+//	isFiring = true;
 	velocity.x -= movementSpeed;
 
-	velocity.y += 982.0f;
+	velocity.y += 982.0f * deltaTime;
 
 	if (velocity.x == 0.0f)
 	    if (faceRight == true)
@@ -117,6 +155,8 @@ void Enemy::CheckIfHit(Bullet & bullet)
     {
 	bullet.setBulletHit(true);
 	body.setPosition(sf::Vector2f(5000, 5000));
-	lives--;
+	lives = 0;
     }
 }
+
+
