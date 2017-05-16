@@ -9,6 +9,7 @@
 #include "Platform.h"
 #include "Bullet.h"
 
+
 using namespace std;
 
 int main()
@@ -49,10 +50,9 @@ int main()
     level1.setTexture(background);
     level1.setOrigin(500.0f, 300.0f);
 
-
+    sf::Text text;
     sf::Font font;
     font.loadFromFile("images/SMLFATMARKER.ttf");
-    sf::Text text;
     text.setFont(font);
     text.setString("Level 1");
     text.setCharacterSize(100);
@@ -60,6 +60,7 @@ int main()
     text.setStyle(sf::Text::Bold | sf::Text::Underlined);
 
     sf::Clock textTime;
+    sf::Time elapsed;
 
     sf::Vector2f distance; //Distance between player and Enemy
 
@@ -190,11 +191,24 @@ int main()
 		player.OnCollision(direction);
 	    }
 	}
-
-
-
-	for (Enemy & enemy : enemyArray)
+	
+	if(player.getPosition().y > 1000) // Game Over
 	{
+
+	  if(player.End) 
+	  {
+	    textTime.restart();
+	    player.End = false;
+	  }
+	  elapsed = textTime.getElapsedTime();
+	  text.setString("Game Over");
+	  text.setCharacterSize(200);
+	  window.draw(text);
+	  
+	  if(elapsed.asSeconds() >= 3.0)
+	  {
+	    window.close();
+	  }
 
 	}
 
@@ -209,7 +223,7 @@ int main()
 	//-------------Draw-----------------
 	window.draw(level1);
 
-	sf::Time elapsed = textTime.getElapsedTime();
+        elapsed = textTime.getElapsedTime();
 	// cout << elapsed.asSeconds() << std::endl;
 
 	if(elapsed.asSeconds() < 3.0)
@@ -225,7 +239,6 @@ int main()
 
 
 //	cout << distance.x << endl;
-
 	for(Enemy& enemy : enemyArray)
 	{
 	  distance.x = enemy.getPosition().x - player.getPosition().x;

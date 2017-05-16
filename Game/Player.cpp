@@ -17,6 +17,7 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
+  std::cout << velocity.y << std::endl;
     velocity.x = 0.0f;
     isFiring = false;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -134,11 +135,12 @@ void Player::CheckIfHit(Bullet & bullet)
 		)
 	{
 		bullet.setBulletHit(true);
-		body.setPosition(sf::Vector2f(200, -500));
+		body.setPosition(sf::Vector2f(500, 5000));
 		lives--;
 		velocity.x = 0.0f;
 		velocity.y = 0.0f;
 		canJump = true;
+		End = true;
 	}
 }
 

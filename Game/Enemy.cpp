@@ -16,7 +16,6 @@ Enemy::~Enemy()
 
 void Enemy::Intelligence(sf::Vector2f distance)
 {
-  std::cout << distance.x << std::endl;
   
   if(distance.x < 200 && distance.x > 0)
   {
