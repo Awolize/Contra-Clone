@@ -23,29 +23,29 @@ public:
 
     sf::Vector2f getPosition() { return body.getPosition(); };
 
-	// Collision with solid object (platforms..)
-	Collider GetCollider() { return Collider(body); };
-	void OnCollision(sf::Vector2f direction);
+    // Collision with solid object (platforms..)
+    Collider GetCollider() { return Collider(body); };
+    void OnCollision(sf::Vector2f direction);
 
-	// Hit / Bullets
-	void CheckIfHit(Bullet & bullet);
-	std::vector<Bullet> bulletArray;
+    // Hit / Bullets
+    void CheckIfHit(Bullet & bullet);
+    std::vector<Bullet> bulletArray;
 
 private:
-	int row{ 0 };
-	Animation animation;
-	bool faceRight{ true };
-	bool isFiring{ false };
-	int lives{ 3 };
+    int row{ 0 };
+    Animation animation;
+    bool faceRight{ true };
+    bool isFiring{ false };
+    int lives{ 3 };
 
-	// Gun
-	Bullet bullet;
-	float gunPlacementX{ body.getPosition().x + 60 };
-	float reloadTime{ 0 };
+    // Gun
+    Bullet bullet;
+    float gunPlacementX{ body.getPosition().x + 60 };
+    float reloadTime{ 0 };
 
-	// Movement
-	sf::Vector2f velocity;
-	bool canJump;
+    // Movement
+    sf::Vector2f velocity;
+    bool canJump;
 };
 
 #endif
