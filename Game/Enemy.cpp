@@ -20,7 +20,7 @@ void Enemy::Update(float deltaTime)
     {
 	velocity.x = 0.0f;
 	isFiring = true;
-	velocity.x -= movementSpeed;
+	velocity.x += movementSpeed;
 
 	velocity.y += 982.0f;
 
@@ -81,10 +81,9 @@ void Enemy::Draw(sf::RenderWindow & window)
     if (lives > 0)
     {
 	window.draw(body);
-
-	for (Bullet& bullet : bulletArray)
-	    bullet.Draw(window);
     }
+    for (Bullet& bullet : bulletArray)
+	bullet.Draw(window);
 }
 
 void Enemy::OnCollision(sf::Vector2f direction)

@@ -1,8 +1,7 @@
 #include "Collider.h"
 
-
 Collider::Collider(sf::RectangleShape & body) :
-	body(body)
+    body(body)
 {
 }
 
@@ -10,64 +9,71 @@ Collider::~Collider()
 {
 }
 
-bool Collider::CheckCollision(Collider & other, sf::Vector2f & direction, float push)
+bool Collider::CheckCollision(Collider & otherBody, sf::Vector2f & direction)
 {
-	sf::Vector2f OtherPosition = other.GetPosition();
-	sf::Vector2f OtherHalfSize = other.GetHalfSize();
-	sf::Vector2f ThisPosition = GetPosition();
-	sf::Vector2f ThisHalfSize = GetHalfSize();
+    float otherBodyTopY = otherBody.GetPosition().y - otherBody.GetSize().y / 2;
+    float otherBodyBottomY = otherBody.GetPosition().y + otherBody.GetSize().y / 2;
+    float otherBodyRightX = otherBody.GetPosition().x + otherBody.GetSize().x / 2;
+    float otherBodyLeftX = otherBody.GetPosition().x - otherBody.GetSize().x / 2;
 
-	float deltaX = OtherPosition.x - ThisPosition.x;
-	float deltaY = OtherPosition.y - ThisPosition.y;
+    float bodyTopY = body.getPosition().y - body.getSize().y / 2;
+    float bodyBottomY = body.getPosition().y + body.getSize().y / 2;
+    float bodyRightX = body.getPosition().x + body.getSize().x / 2;
+    float bodyLeftX = body.getPosition().x - body.getSize().x / 2;
 
-	float intersectX = abs(deltaX) - (OtherHalfSize.x + ThisHalfSize.x);
-	float intersectY = abs(deltaY) - (OtherHalfSize.y + ThisHalfSize.y);
+    float moveX = abs(otherBody.GetPosition().x - body.getPosition().x) - 
+	(otherBody.GetSize().x / 2 + body.getSize().x / 2);
+    float moveY = abs(otherBody.GetPosition().y - body.getPosition().y) - 
+	(otherBody.GetSize().y / 2 + body.getSize().y / 2);
+	
+					      
+    if ((otherBody.GetPosition().x + (otherBody.GetSize().x / 2) >
+	 body.getPosition().x - ( body.getSize().x / 2) &&
 
-	if (intersectX < 0.0f && intersectY < 0.0f)
+	 otherBody.GetPosition().x - (otherBody.GetSize().x / 2) <
+	 body.getPosition().x + (body.getSize().x / 2)) &&
+
+
+	(otherBody.GetPosition().y + (otherBody.GetSize().y / 2) >
+	 body.getPosition().y - (body.getSize().y / 2) &&
+
+	 otherBody.GetPosition().y - (otherBody.GetSize().y / 2) <
+	 body.getPosition().y + (body.getSize().y / 2)))
+    {
+	/*
+	            XXX    
+		    XP_  
+		    XXX 
+	       XXX
+               _PX
+	       XXX  
+	 */
+	if (bodyTopY < otherBodyBottomY) // Collision on the bottom
 	{
-		push = std::min(std::max(push, 0.0f), 1.0f);
-
-		if (intersectX > intersectY)
-		{
-			if (deltaX > 0.0f)
-			{
-				Move(intersectX * (1.0f - push), 0.0f);
-				other.Move(-intersectX * push, 0.0f);
-
-				direction.x = 1.0f;
-				direction.y = 0.0f;
-			}
-			else
-			{
-				Move(-intersectX * (1.0f - push), 0.0f);
-				other.Move(intersectX * push, 0.0f);
-
-				direction.x = -1.0f;
-				direction.y = 0.0f;
-			}
-		}
-		else
-		{
-			if (deltaY > 0.0f)
-			{
-				Move(0.0f, intersectY * (1.0f - push));
-				other.Move(0.0f, -intersectY * push);
-
-				direction.x = 0.0f;
-				direction.y = 1.0f;
-			}
-			else
-			{
-				Move(0.0f, -intersectY * (1.0f - push));
-				other.Move(0.0f, intersectY * push);
-
-				direction.x = 0.0f;
-				direction.y = -1.0f;
-			}
-		}
-
-		return true;
+	    otherBody.Move(0.0f, +(moveY));
+	    direction.x = 0.0f;
+	    direction.y = -1.0f;		
+	}
+        else if (bodyBottomY > otherBodyTopY) // Collision on the top
+	{
+	    otherBody.Move(0.0f, -(moveY));
+	    direction.x = 0.0f;
+	    direction.y = 1.0f;		
+	}
+	else if (bodyLeftX < otherBodyRightX) // Collision on the left
+	{
+	    otherBody.Move(+(moveX), 0.0f);
+	    direction.x = -1.0f;
+	    direction.y = 0.0f;		
+	}
+	else if (bodyRightX > otherBodyLeftX) // Collision on the right
+	{
+	    otherBody.Move(-(moveX), 0.0f);;
+	    direction.x = 1.0f;
+	    direction.y = 0.0f;		
 	}
 
-	return false;
+	return true;
+    }
+    return false;
 }
