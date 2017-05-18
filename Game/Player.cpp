@@ -17,7 +17,7 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
-  std::cout << velocity.y << std::endl;
+    //std::cout << velocity.y << std::endl;
     velocity.x = 0.0f;
     isFiring = false;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))

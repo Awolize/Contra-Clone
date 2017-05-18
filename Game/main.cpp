@@ -56,7 +56,7 @@ int main()
     text.setFont(font);
     text.setString("Level 1");
     text.setCharacterSize(100);
-    text.setColor(sf::Color::Red);
+    //   text.setColor(sf::Color::Red);
     text.setStyle(sf::Text::Bold | sf::Text::Underlined);
 
     sf::Clock textTime;
@@ -177,7 +177,7 @@ int main()
 	    for (Platform & platform : platformArray)
 	    {
 		Collider temp = enemy.GetCollider();
-		if (platform.GetCollider().CheckCollision(temp, direction, 1.0f))
+		if (platform.GetCollider().CheckCollision(temp, direction))
 		{
 		    enemy.OnCollision(direction);
 		}
@@ -186,7 +186,7 @@ int main()
 	for (Platform & platform : platformArray)
 	{
 	    Collider temp = player.GetCollider();
-	    if (platform.GetCollider().CheckCollision(temp, direction, 1.0f))
+	    if (platform.GetCollider().CheckCollision(temp, direction))
 	    {
 		player.OnCollision(direction);
 	    }
