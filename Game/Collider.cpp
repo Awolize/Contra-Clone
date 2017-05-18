@@ -7,10 +7,6 @@ Collider::Collider(sf::RectangleShape & body) :
 {
 }
 
-Collider::~Collider()
-{
-}
-
 bool Collider::CheckCollision(Collider & otherBody, sf::Vector2f & direction)
 {
     if ((otherBody.GetPosition().x + (otherBody.GetSize().x / 2) >
