@@ -1,11 +1,11 @@
-#pragma once
+#ifndef COLLIDER_H
+#define COLLIDER_H
 #include <SFML/Graphics.hpp>
 
 class Collider
 {
 public:
     Collider(sf::RectangleShape & body);
-    ~Collider();
 
     void Move(float dx, float dy) { body.move(dx, dy); }
     bool CheckCollision(Collider & other, sf::Vector2f & direction);
@@ -16,3 +16,5 @@ public:
 private:
     sf::RectangleShape & body;
 };
+
+#endif
