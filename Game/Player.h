@@ -32,6 +32,7 @@ public:
     void CheckIfHit(Bullet & bullet);
     std::vector<Bullet> bulletArray;
 
+  bool End {false};
 private:
     int row{ 0 };
     Animation animation;
