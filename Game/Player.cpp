@@ -1,5 +1,6 @@
 #include "Player.h"
 
+
 Player::Player(sf::Vector2f position, float health, float attackDamage, float movementSpeed, float jumpHeight,
 	sf::Texture* playerTexture, sf::Vector2i imageCount, float switchTime, sf::Texture* bulletTexture)
 	: Characters(position, health, attackDamage, movementSpeed, jumpHeight),

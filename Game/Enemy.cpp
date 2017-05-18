@@ -2,6 +2,7 @@
 #include <random>
 #include <iostream>
 
+
 Enemy::Enemy(sf::Vector2f position, float health, float attackDamage, float movementSpeed, float jumpHeight,
 	sf::Texture* enemyTexture, sf::Vector2i imageCount, float switchTime, sf::Texture* bulletTexture)
 	: Characters(position, health, attackDamage, movementSpeed, jumpHeight),

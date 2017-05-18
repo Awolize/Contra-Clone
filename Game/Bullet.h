@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Collider.h"
 
+
 class Bullet
 {
 public:
