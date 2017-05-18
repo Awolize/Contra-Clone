@@ -23,13 +23,13 @@ bool Collider::CheckCollision(Collider & otherBody, sf::Vector2f & direction)
 	 body.getPosition().y + (body.getSize().y / 2)))
     {
 	if (((abs(otherBody.GetPosition().x - body.getPosition().x) - 
-	      ((otherBody.GetSize().x / 2) + (body.getSize().x / 2))) >=
+	      ((otherBody.GetSize().x / 2) + (body.getSize().x / 2))) >
 	     (abs(otherBody.GetPosition().y - body.getPosition().y)  -
 	      ((otherBody.GetSize().y / 2) + (body.getSize().y / 2)))))
 	{
 	    direction.x = 0.0f;
 	    direction.y = 0.0f;
-	    if ((otherBody.GetPosition().x - body.getPosition().x) >= 0)
+	    if ((otherBody.GetPosition().x - body.getPosition().x) > 0)
 	    {
 		otherBody.Move(-(abs(body.getPosition().x - otherBody.GetPosition().x) -
 				 ((otherBody.GetSize().x / 2) + (body.getSize().x / 2))), 0);
@@ -44,7 +44,7 @@ bool Collider::CheckCollision(Collider & otherBody, sf::Vector2f & direction)
 	}
 	else
 	{
-	    if ((otherBody.GetPosition().y - body.getPosition().y) >= 0)
+	    if ((otherBody.GetPosition().y - body.getPosition().y) > 0)
 	    {
 		otherBody.Move(0, -(abs(body.getPosition().y - otherBody.GetPosition().y) -
 				    ((otherBody.GetSize().y / 2) + (body.getSize().y / 2))));
