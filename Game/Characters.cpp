@@ -10,4 +10,3 @@ Characters::Characters(sf::Vector2f position, float health, float attackDamage, 
 Characters::~Characters()
 {
 }
-
