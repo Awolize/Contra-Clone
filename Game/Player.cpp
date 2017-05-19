@@ -135,14 +135,17 @@ void Player::CheckIfHit(Bullet & bullet)
     {
 	bullet.setBulletHit(true);
 
-	if(lives <= 0) 
+	if(lives <= 0 )
 	{
-	  body.setPosition(sf::Vector2f(500, 5000));
+	  End = true;
 	}
-
-	lives -= 1;
-	velocity.y = 0.0f;
-	canJump = true;
-	End = true;
+	else if(End == false)
+	{
+	  lives--;
+	  velocity.y = 0.0f;
+	  canJump = true;
+	  body.setPosition(100, 100);
+	}
+        
     }
 }
