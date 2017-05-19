@@ -31,6 +31,7 @@ public:
     // Hit / Bullets
     void CheckIfHit(Bullet & bullet);
     std::vector<Bullet> bulletArray;
+    int lives{ 300 };
 
   bool End {false};
 private:
@@ -38,7 +39,6 @@ private:
     Animation animation;
     bool faceRight{ true };
     bool isFiring{ false };
-    int lives{ 300 };
 	
     // Gun
     Bullet bullet;

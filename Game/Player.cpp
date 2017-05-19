@@ -1,14 +1,15 @@
 #include "Player.h"
 
+
 Player::Player(sf::Vector2f position, float health, float attackDamage, float movementSpeed, float jumpHeight,
-	       sf::Texture* playerTexture, sf::Vector2i imageCount, float switchTime, sf::Texture* bulletTexture)
-    : Characters(position, health, attackDamage, movementSpeed, jumpHeight),
-      animation(playerTexture, imageCount, switchTime)
+	sf::Texture* playerTexture, sf::Vector2i imageCount, float switchTime, sf::Texture* bulletTexture)
+	: Characters(position, health, attackDamage, movementSpeed, jumpHeight),
+	animation(playerTexture, imageCount, switchTime)
 {
-    body.setTexture(playerTexture);
-    bullet.setTexture(bulletTexture);
-    std::cout << "Player Body Origin (x, y): " << body.getOrigin().x << " " << body.getOrigin().y << std::endl;
-    std::cout << "Player Body Size   (x, y): " << body.getSize().x << " " << body.getSize().y << std::endl;
+	body.setTexture(playerTexture);
+	bullet.setTexture(bulletTexture);
+	std::cout << "Player Body Origin (x, y): " << body.getOrigin().x << " " << body.getOrigin().y << std::endl;
+	std::cout << "Player Body Size   (x, y): " << body.getSize().x << " " << body.getSize().y << std::endl;
 }
 
 Player::~Player()
@@ -17,6 +18,7 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
+<<<<<<< HEAD
   std::cout << velocity.y << std::endl;
     velocity.x = 0.0f;
     isFiring = false;
@@ -50,20 +52,54 @@ void Player::Update(float deltaTime)
     else
     {
 	if (velocity.x > 0.0f)
+=======
+	velocity.x = 0.0f;
+	isFiring = false;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		velocity.x -= movementSpeed;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		velocity.x += movementSpeed;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{ }
+		std::cout << "";
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && canJump)
+>>>>>>> aleer778
 	{
-	    row = 2;
-	    faceRight = true;
+		canJump = false;
+
+		velocity.y = -sqrtf(2.0f * 982.0f * jumpHeight);
 	}
+
+	velocity.y += 982.0f * deltaTime;
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		isFiring = true;
+	}
+
+
+	if (velocity.x == 0.0f)
+		if (faceRight == true)
+			row = 0;
+		else
+			row = 1;
 	else
 	{
-	    row = 3;
-	    faceRight = false;
+		if (velocity.x > 0.0f)
+		{
+			row = 2;
+			faceRight = true;
+		}
+		else
+		{
+			row = 3;
+			faceRight = false;
+		}
 	}
-    }
-    if (reloadTime > 0)
-	reloadTime *= deltaTime;
-    if (reloadTime > 20)
-	reloadTime = 0;
+	if (reloadTime > 0)
+		reloadTime *= deltaTime;
+	if (reloadTime > 20)
+		reloadTime = 0;
 
 	if (isFiring == true && reloadTime == 0)
 	{
@@ -106,19 +142,18 @@ void Player::Draw(sf::RenderWindow & window)
 		bullet.Draw(window);
 }
 
-// velocity = 0 in the collision direction 
 void Player::OnCollision(sf::Vector2f direction)
 {
-	if (direction.x < 0.0f || direction.x > 0.0f) // Collision on the left.
+	if (direction.x < 0.0f || direction.x > 0.0f) // Collision on the left and right.
 	{
-		velocity.x = 0.0f;
 		canJump = false;
+		velocity.y = 0.0f;
 	}
-	else if (direction.y < 0.0f || direction.y > 0.0f) // Collision on the bottom.
+	else if (direction.y < 0.0f || direction.y > 0.0f) // Collision on the top.
 	{
 		velocity.y = 0.0f;
 		canJump = false;
-		if (direction.y < 0.0f)
+		if (direction.y < 0.0f) // Collision on the bottom.
 			canJump = true;
 	}
 }
@@ -137,7 +172,6 @@ void Player::CheckIfHit(Bullet & bullet)
 		bullet.setBulletHit(true);
 		body.setPosition(sf::Vector2f(500, 5000));
 		lives--;
-		velocity.x = 0.0f;
 		velocity.y = 0.0f;
 		canJump = true;
 		End = true;
