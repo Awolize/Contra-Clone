@@ -38,13 +38,9 @@ private:
   Animation animation;
   bool faceRight{ true };
   bool isFiring{ false };
-<<<<<<< HEAD
-  int lives{ 3 };
-=======
   bool closeEnough{ false };
   int lives{ 3 };
   double rngNumCanJump{ 0 };
->>>>>>> aleer778
 
   // Gun
     Bullet bullet;

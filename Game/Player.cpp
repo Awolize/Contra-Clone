@@ -18,11 +18,6 @@ Player::~Player()
 
 void Player::Update(float deltaTime)
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-  std::cout << velocity.y << std::endl;
-=======
->>>>>>> aleer778
     velocity.x = 0.0f;
     isFiring = false;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -30,13 +25,8 @@ void Player::Update(float deltaTime)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	velocity.x += movementSpeed;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-<<<<<<< HEAD
-	// collision = false;;
-	std::cout << "";
-=======
     { }
     std::cout << "";
->>>>>>> aleer778
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && canJump)
     {
 	canJump = false;
@@ -60,30 +50,6 @@ void Player::Update(float deltaTime)
     else
     {
 	if (velocity.x > 0.0f)
-<<<<<<< HEAD
-=======
-	velocity.x = 0.0f;
-	isFiring = false;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		velocity.x -= movementSpeed;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		velocity.x += movementSpeed;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	{ }
-		std::cout << "";
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && canJump)
->>>>>>> aleer778
-	{
-		canJump = false;
-
-		velocity.y = -sqrtf(2.0f * 982.0f * jumpHeight);
-	}
-
-	velocity.y += 982.0f * deltaTime;
-
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-=======
->>>>>>> aleer778
 	{
 	    row = 2;
 	    faceRight = true;
@@ -168,8 +134,13 @@ void Player::CheckIfHit(Bullet & bullet)
 	)
     {
 	bullet.setBulletHit(true);
-	body.setPosition(sf::Vector2f(500, 5000));
-	lives--;
+
+	if(lives <= 0) 
+	{
+	  body.setPosition(sf::Vector2f(500, 5000));
+	}
+
+	lives -= 1;
 	velocity.y = 0.0f;
 	canJump = true;
 	End = true;
