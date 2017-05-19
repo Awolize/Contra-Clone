@@ -51,6 +51,13 @@ int main()
 	sf::Texture ground1;
 	ground1.loadFromFile("images/level1ground.jpg");
 
+	sf::Texture building;
+	building.loadFromFile("images/castle.png");
+
+	sf::Sprite castle;
+	castle.setTexture(building);
+	castle.setOrigin(4500, 0);
+
 	sf::Sprite level1;
 	level1.setTexture(background);
 	level1.setOrigin(500.0f, 300.0f);
@@ -265,6 +272,7 @@ int main()
 		window.clear(sf::Color(200, 0, 0));
 		//-------------Draw-----------------
 		window.draw(level1);
+		window.draw(castle);
 
 		elapsed = textTime.getElapsedTime();
 		// cout << elapsed.asSeconds() << std::endl;
