@@ -219,6 +219,3 @@ void Enemy::CheckIfHit(Bullet & bullet)
 	}
 >>>>>>> aleer778
 }
-
-
-
