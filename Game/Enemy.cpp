@@ -146,6 +146,3 @@ void Enemy::CheckIfHit(Bullet & bullet)
 		body.setPosition(sf::Vector2f(5000, 5000));
 	}
 }
-
-
-

@@ -141,4 +141,3 @@ void Player::CheckIfHit(Bullet & bullet)
 	End = true;
     }
 }
-
