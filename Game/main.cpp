@@ -20,6 +20,8 @@ int main()
 
 	window.setKeyRepeatEnabled(false);
 	window.setVerticalSyncEnabled(true);
+	int healthPoints{3};
+	vector<sf::Sprite> drawposhp;
 
 
 	//    sf::Music music;
@@ -40,6 +42,9 @@ int main()
 	sf::Texture background;
 	background.loadFromFile("images/1.png");
 
+	 sf::Texture heart;
+	 heart.loadFromFile("images/inSovietRussia.png");
+
 	sf::Texture lava;
 	lava.loadFromFile("images/lava.png");
 
@@ -49,6 +54,10 @@ int main()
 	sf::Sprite level1;
 	level1.setTexture(background);
 	level1.setOrigin(500.0f, 300.0f);
+
+	sf::Sprite health;
+	health.setTexture(heart);
+	health.setScale(0.5f, 0.5f);
 
 	sf::Text text;
 	sf::Font font;
@@ -237,6 +246,25 @@ int main()
 
 		for (Platform& platform : platformArray)
 			platform.Draw(window);
+
+		float currentPos {player.getPosition().x};
+		if (player.getPosition().x < 15)
+		  currentPos = 15;
+		int tempHealthPos = currentPos-512;
+		for(int i{0}; i < player.lives; i++)
+		  {
+		    health.setPosition(tempHealthPos + (i*70), -300);
+		    drawposhp.push_back(health);
+		  }
+
+		for( sf::Sprite& health :  drawposhp)
+		  {
+		    window.draw(health);
+		
+		  }
+		drawposhp.erase(drawposhp.begin(),drawposhp.end());
+		window.display();
+       
 
 		window.display();
 	}
