@@ -33,7 +33,7 @@ public:
     std::vector<Bullet> bulletArray;
     int lives{ 300 };
 
-  bool End {false};
+    bool end{ false };
 private:
     int row{ 0 };
     Animation animation;

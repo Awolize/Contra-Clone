@@ -138,6 +138,6 @@ void Player::CheckIfHit(Bullet & bullet)
 	lives--;
 	velocity.y = 0.0f;
 	canJump = true;
-	End = true;
+	end = true;
     }
 }
