@@ -19,38 +19,42 @@ Enemy::~Enemy()
 
 void Enemy::Intelligence(sf::Vector2f distance)
 {
+  if(fireMode)
+  {
+    isFiring = false;
+  }
 
-	if (distance.x < 200 && distance.x > 0)
-	{
-		isFiring = true;
+  if (distance.x < 200 && distance.x > 0)
+  {
+    isFiring = true;
 
-		if (distance.x < 100)
-			movementSpeed = -40;
-		fireMode = false;
-	}
-	else if (distance.x > 200 && distance.x < 300)
-	{
-		isFiring = false;
-		movementSpeed = 100;
-		fireMode = false;
-	}
-	else if (distance.x > 300)
-	{
-		movementSpeed = 0;
-		fireMode = true;
-	}
+    if (distance.x < 100)
+      movementSpeed = -40;
+    fireMode = false;
+  }
+  else if (distance.x > 200 && distance.x < 300)
+  {
+    isFiring = false;
+    movementSpeed = 100;
+    fireMode = false;
+  }
+  else if (distance.x > 300)
+  {
+    movementSpeed = 0;
+    fireMode = true;
+  }
 
-	if (distance.x < 50)
-	{
-		canJump = true;
-	}
+  if (distance.x < 50)
+  {
+    canJump = true;
+  }
 
-	if (canJump)
-	{
-		// std::cout << "HEJ" << std::endl;
-		velocity.y = -sqrtf(2.0f * 982.0f * 100);
-		canJump = false;
-	}
+  if (canJump)
+  {
+    // std::cout << "HEJ" << std::endl;
+    velocity.y = -sqrtf(2.0f * 982.0f * 100);
+    canJump = false;
+  }
 }
 
 void Enemy::Update(float deltaTime)
