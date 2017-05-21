@@ -31,7 +31,7 @@ public:
     // Hit / Bullets
     void CheckIfHit(Bullet & bullet);
     std::vector<Bullet> bulletArray;
-    int lives{ 300 };
+    int lives{ 3 };
 
     bool end{ false };
 private:
