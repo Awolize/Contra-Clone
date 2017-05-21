@@ -22,6 +22,7 @@ public:
 
     Collider GetCollider() { return Collider(body); };
     bool faceRight;
+    int direction{ 0 };
 
 private:
     sf::RectangleShape body;

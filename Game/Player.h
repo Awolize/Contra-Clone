@@ -44,6 +44,7 @@ private:
     Bullet bullet;
     float gunPlacementX{ body.getPosition().x + 60 };
     float reloadTime{ 0 };
+    int pointGun{ 0 };
 
     // Jump / movement
     sf::Vector2f velocity;
