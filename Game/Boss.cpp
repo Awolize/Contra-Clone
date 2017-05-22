@@ -168,25 +168,10 @@ void Boss::CheckIfHit(Bullet & bullet)
 	bullet.getGravityPositionY() - (bullet.getSizeY() / 2) < body.getPosition().y + (body.getSize().y / 2))))
   {
     bullet.setBulletHit(true);
-
-    hitDurationMin++;
-    std::cout<<hitDurationMin<<std::endl;
-
-    bullet.setBulletHit(true);
-
-    if(hitDurationMin == 1) // This limits the collision from immediately killing the enemy.
-    {
-      lives--;
-    }
-
-    if(lives <= 0)
+    lives--;
+    if(lives == 0)
     {
       body.setPosition(sf::Vector2f(5000, 5000));
-    }
-
-    if(hitDurationMin >= hitDurationMax)
-    {
-      hitDurationMin = 0;
     }
   }
 

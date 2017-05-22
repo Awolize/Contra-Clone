@@ -6,6 +6,7 @@
 class Entity
 {
 public:
+    Entity();
     Entity(sf::Vector2f position);
     ~Entity();
 
@@ -13,7 +14,6 @@ public:
     virtual void Draw(sf::RenderWindow& window) = 0;
     
     sf::RectangleShape body;
-    bool faceRight;
 };
 
 #endif

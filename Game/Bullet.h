@@ -1,9 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Collider.h"
+#include "Entity.h"
 
-
-class Bullet
+class Bullet : Entity
 {
 public:
     Bullet();
@@ -25,14 +25,14 @@ public:
     int direction{ 0 };
 
 private:
-    sf::RectangleShape body;
     float velocity{ 500 };
     bool bulletHit{ false };
     bool animationExplosion{ true };
-    int explosionTime{ 0 };
     sf::Sprite spriteExplosion;
     sf::Texture explosion;
 
     sf::Time time = sf::seconds(0.7);
+    sf::Time explosionTime = sf::seconds(0.4);
+    double explosionTime0{ explosionTime.asSeconds() - 0.0001 };
 };
 

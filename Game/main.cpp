@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-// #include <SFML/Audio.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include <vector>
 #include "Characters.h"
@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Platform.h"
 #include "Bullet.h"
+#include "Boss.h"
 #include <fstream>
 
 
@@ -25,19 +26,25 @@ int main()
     int healthPoints{ 3 };
     vector<sf::Sprite> drawposhp;
 
-    //    sf::Music music;
-    //    music.openFromFile("music/level1.ogg");
-    //    music.play();
+        sf::Music music;
+        music.openFromFile("music/level1.ogg");
+        music.play();
 
     // Define Textures
     sf::Texture bullet;
     bullet.loadFromFile("images/bullet.png");
+
+    sf::Texture bossBullet;
+    bossBullet.loadFromFile("images/bossBullet.png");
 
     sf::Texture playerTexture;
     playerTexture.loadFromFile("images/playerTexture.png");
 
     sf::Texture enemyTexture;
     enemyTexture.loadFromFile("images/Enemy.png");
+
+    sf::Texture bossTexture;
+    bossTexture.loadFromFile("images/Boss.png");
 
     sf::Texture background;
     background.loadFromFile("images/1.png");
@@ -51,9 +58,20 @@ int main()
     sf::Texture ground1;
     ground1.loadFromFile("images/level1ground.jpg");
 
+    sf::Texture bossGround;
+    bossGround.loadFromFile("images/bossplatform.png");
+
+    sf::Texture portal;
+    portal.loadFromFile("images/door.png");
+
     sf::Sprite level1;
     level1.setTexture(background);
     level1.setOrigin(500.0f, 300.0f);
+
+    sf::Sprite door;
+    door.setTexture(portal);
+    door.setScale(2.5f, 4.0f);
+    door.setPosition(4400, 50);
 
     sf::Sprite health;
     health.setTexture(heart);
@@ -115,6 +133,7 @@ int main()
     sf::Time elapsed;
 
     sf::Vector2f distance; //Distance between player and Enemy
+    sf::Vector2f bossDistance; //Distance between player and boss
 
     // Define Objects	
     float setview;
@@ -126,9 +145,10 @@ int main()
     enemyArray.push_back(Enemy(sf::Vector2f(2900, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
     enemyArray.push_back(Enemy(sf::Vector2f(3500, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
     enemyArray.push_back(Enemy(sf::Vector2f(3900, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
-    enemyArray.push_back(Enemy(sf::Vector2f(4500, 0), 100, 100, 10, 10, &enemyTexture, sf::Vector2i(3, 4), 0.2f, &bullet));
 
     Player player(sf::Vector2f(200, -0), 100, 100, 400, 200, &playerTexture, sf::Vector2i(3, 4), 0.2f, &bullet);
+    Boss boss(sf::Vector2f(7600, 100), 100, 100, 10, 10, &bossTexture, sf::Vector2i(3, 4), 0.2f, &bossBullet);
+
     std::vector<Bullet> bulletVector;
 
     	// Platform Vector Array
@@ -179,6 +199,15 @@ int main()
 	platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(4300, 400)));
 	platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(4400, 400)));
 	platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(4500, 400)));
+
+	std::vector<Platform> bossPlatform;
+	platformArray.push_back(Platform(&bossGround, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(7000, 400)));
+	platformArray.push_back(Platform(&bossGround, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(7100, 400)));
+	platformArray.push_back(Platform(&bossGround, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(7200, 400)));
+	platformArray.push_back(Platform(&bossGround, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(7300, 400)));
+	platformArray.push_back(Platform(&bossGround, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(7400, 400)));
+	platformArray.push_back(Platform(&bossGround, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(7500, 400)));
+	platformArray.push_back(Platform(&bossGround, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(7600, 400)));
 
     float deltaTime = 0.0f;
     sf::Clock clock;
@@ -295,19 +324,45 @@ int main()
 
 	    //-------------Update---------------
 	    player.Update(deltaTime);
+	    boss.Update(deltaTime);
+	    
+
 	    sf::Vector2f direction;
+
+	    for(Bullet & bullet : player.bulletArray)
+	    {
+	      boss.CheckIfHit(bullet);
+	    }
+
+	    for(Platform & platform : platformArray)
+	    {
+	      Collider temp = boss.getCollider();
+	      if(platform.GetCollider().CheckCollision(temp, direction))
+	      {
+		boss.onCollision(direction);
+	      }
+	    }
+
+
 	    for (Enemy & enemy : enemyArray)
 	    {
 		enemy.Update(deltaTime);
 		for (Bullet & bullet : player.bulletArray)
 		{
 		    enemy.CheckIfHit(bullet);
+
 		}
 
 		for (Bullet & bullet : enemy.bulletArray)
 		{
 		    player.CheckIfHit(bullet);
 		}
+
+		for(Bullet & bullet : boss.bulletArray)
+		{
+		  player.CheckIfHit(bullet);
+		}
+
 
 		for (Platform & platform : platformArray)
 		{
@@ -343,6 +398,15 @@ int main()
 		}
 	    }
 
+	    for (Platform & platform : bossPlatform)
+	    {
+	      Collider temp = player.GetCollider();
+	      if (platform.GetCollider().CheckCollision(temp, direction))
+	      {
+		player.OnCollision(direction);
+	      }
+	    }
+
 	    
 
 	    for(Platform& platform : lavaArray)
@@ -361,6 +425,19 @@ int main()
 		}
 
 	      }
+	    }
+	    if(player.getPosition().x >= 4400 && player.getPosition().x < 5000)
+	    {
+	      player.body.setPosition(7000, 200);
+	      boss.bossActivated = true;	      
+	    }
+
+	    bossDistance.x = abs(boss.getPosition().x - player.getPosition().x);
+	    bossDistance.y = abs(boss.getPosition().y - player.getPosition().y);
+
+	    if(player.getPosition().x > 5000)
+	    {	      
+	    boss.bossIntelligence(bossDistance);
 	    }
 
 	    if (player.getPosition().y > 1000 || player.end == true) // Game Over
@@ -392,7 +469,8 @@ int main()
 	    window.clear(sf::Color(200, 0, 0));
 	    //-------------Draw-----------------
 	    window.draw(level1);
-
+	    window.draw(door);
+	    boss.Draw(window);
 	    elapsed = textTime.getElapsedTime();
 	    // cout << elapsed.asSeconds() << std::endl;
 
@@ -432,7 +510,7 @@ int main()
     
     }
     window.close();
-    // music.stop();
+     music.stop();
 
     return 0;
 }
