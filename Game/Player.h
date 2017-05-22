@@ -42,7 +42,8 @@ private:
     // Gun
     Bullet bullet;
     float gunPlacementX{ body.getPosition().x + 60 };
-    float reloadTime{ 0 };
+    float reloadTime0 = 0.4;
+    sf::Time reloadTime = sf::seconds(reloadTime0);
     int pointGun{ 0 };
 
     // Jump / movement
