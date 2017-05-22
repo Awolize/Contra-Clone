@@ -7,7 +7,6 @@ Platform::Platform(sf::Texture* texture, sf::Vector2f size, sf::Vector2f positio
 	body.setTexture(texture);
 	body.setPosition(position);
 	body.setOrigin(size / 2.0f);
-//	body.setFillColor(sf::Color::Transparent);
 }
 
 void Platform::Draw(sf::RenderWindow & window)

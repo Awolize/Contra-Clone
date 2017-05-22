@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include "PowerUp.h"
 
 
 class Player : public Characters
@@ -27,23 +28,25 @@ public:
     // Collision with solid object (platforms..)
     Collider GetCollider() { return Collider(body); };
     void OnCollision(sf::Vector2f direction);
+    bool CheckIfOnPowerUp(PowerUp& powerup);
 
     // Hit / Bullets
     void CheckIfHit(Bullet & bullet);
     std::vector<Bullet> bulletArray;
     int lives{ 3 };
 
+    bool end{ false };
 private:
     int row{ 0 };
     Animation animation;
     bool faceRight{ true };
     bool isFiring{ false };
-
 	
     // Gun
     Bullet bullet;
     float gunPlacementX{ body.getPosition().x + 60 };
     float reloadTime{ 0 };
+    int pointGun{ 0 };
 
     // Jump / movement
     sf::Vector2f velocity;

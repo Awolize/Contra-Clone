@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Collider.h"
 
+
 class Platform
 {
 public:
@@ -10,7 +11,7 @@ public:
 	void Draw(sf::RenderWindow & window);
 	Collider GetCollider() { return Collider(body); };
 
-private:
+	//private:
 	sf::RectangleShape body;
 };
 

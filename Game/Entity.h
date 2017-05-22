@@ -2,9 +2,11 @@
 #define ENTITY_H
 #include <SFML/Graphics.hpp>
 
+
 class Entity
 {
 public:
+  Entity();
     Entity(sf::Vector2f position);
     ~Entity();
 
