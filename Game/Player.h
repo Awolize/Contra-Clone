@@ -21,7 +21,6 @@ public:
     void Update(float deltaTime) override;
     void Draw(sf::RenderWindow& window) override;
 
-
     sf::Vector2f getPosition() { return body.getPosition(); };
 	
     // Collision with solid object (platforms..)
