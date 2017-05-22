@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include "PowerUp.h"
 
 
 class Player : public Characters
@@ -27,6 +28,7 @@ public:
     // Collision with solid object (platforms..)
     Collider GetCollider() { return Collider(body); };
     void OnCollision(sf::Vector2f direction);
+    bool CheckIfOnPowerUp(PowerUp& powerup);
 
     // Hit / Bullets
     void CheckIfHit(Bullet & bullet);

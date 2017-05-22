@@ -148,6 +148,24 @@ void Player::OnCollision(sf::Vector2f direction)
     }
 }
 
+bool Player::CheckIfOnPowerUp(PowerUp& powerup) 
+{
+    if (// X-Axis 
+	(powerup.body.getPosition().x + (powerup.body.getSize().x / 2) > body.getPosition().x - (body.getSize().x / 2) &&
+	 (powerup.body.getPosition().x - (powerup.body.getSize().x / 2) < body.getPosition().x + (body.getSize().x / 2))
+	 &&
+	 // Y-Axis
+	 (powerup.body.getPosition().y + (powerup.body.getSize().y / 2) > body.getPosition().y - (body.getSize().y / 2) &&
+	  powerup.body.getPosition().y - (powerup.body.getSize().y / 2) < body.getPosition().y + (body.getSize().y / 2))
+	    ))
+	
+    {
+	return true;
+    }
+    return false;
+
+}
+
 void Player::CheckIfHit(Bullet & bullet)
 {
     if (// X-Axis 
