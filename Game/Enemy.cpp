@@ -43,7 +43,7 @@ void Enemy::Intelligence(sf::Vector2f distance)
 	movementSpeed = 0;
 	fireMode = true;
     }
-    std::cout << body.getPosition().y << std::endl;
+
     if (distance.x < 50 && body.getPosition().y > -100)
     {
 	canJump = true;
@@ -52,7 +52,6 @@ void Enemy::Intelligence(sf::Vector2f distance)
 
     if (canJump)
     {
-	// std::cout << "HEJ" << std::endl;
 	velocity.y = -sqrtf(2.0f * 982.0f * 100);
 	canJump = false;
     }

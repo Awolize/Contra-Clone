@@ -82,13 +82,11 @@ void Player::Update(float deltaTime)
 	    }
 	}
 
+	float temp = reloadTime.asSeconds();
+	temp -= deltaTime;
+	reloadTime = sf::seconds(temp);
 
-	if (reloadTime > 0)
-	    reloadTime *= deltaTime;
-	if (reloadTime > 20)
-	    reloadTime = 0;
-
-	if (isFiring == true && reloadTime == 0)
+	if (isFiring == true && reloadTime.asSeconds() < 0)
 	{
 	    if (faceRight)
 		gunPlacementX = body.getPosition().x + 55;
@@ -96,11 +94,10 @@ void Player::Update(float deltaTime)
 		gunPlacementX = body.getPosition().x - 55;
 
 	    bullet.setPosition(sf::Vector2f(gunPlacementX, body.getPosition().y + -15));
-	    std::cout << pointGun << std::endl;
 	    bullet.direction = pointGun;
 	    bullet.faceRight = faceRight;
 	    bulletArray.push_back(bullet);
-	    reloadTime++;
+	    reloadTime = sf::seconds(reloadTime0);
 	}
 
 	for (Bullet& bullet : bulletArray)

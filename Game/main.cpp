@@ -211,11 +211,14 @@ int main()
 
     float deltaTime = 0.0f;
     sf::Clock clock;
+    sf::Clock totalClock;
+    sf::Time totalTime = sf::seconds(0);
 
     bool menuScreen{ true };
     bool scoreScreen{ false };
     bool mainGameScreen{ false };
     bool viewHighscore{ false };
+    bool writeOnce{ true };
 
     // Main Game
     while (window.isOpen())
@@ -458,6 +461,17 @@ int main()
 		window.close();
 	      }
 	    }
+	    
+	    totalTime = totalClock.getElapsedTime();
+	    if (player.lives == 0 && writeOnce)
+	    {
+		ofstream fout;
+		fout.open ("Highscore.txt", std::ios_base::app);
+		fout << totalTime.asSeconds() << endl;
+		cout << totalTime.asSeconds() << endl;
+		fout.close();
+		writeOnce = false;
+	    }
 
 	    //-------------View-----------------
 	    setview = player.getPosition().x;
@@ -472,7 +486,6 @@ int main()
 	    window.draw(door);
 	    boss.Draw(window);
 	    elapsed = textTime.getElapsedTime();
-	    // cout << elapsed.asSeconds() << std::endl;
 
 	    if (elapsed.asSeconds() < 3.0)
 		window.draw(text);
@@ -504,6 +517,8 @@ int main()
 
 	    }
 	    drawposhp.erase(drawposhp.begin(), drawposhp.end());
+
+
 
 	    window.display();
 	}
