@@ -31,19 +31,20 @@ public:
     // Hit / Bullets
     void CheckIfHit(Bullet & bullet);
     std::vector<Bullet> bulletArray;
+    int lives{ 3 };
 
-  bool End {false};
+    bool end{ false };
 private:
     int row{ 0 };
     Animation animation;
     bool faceRight{ true };
     bool isFiring{ false };
-    int lives{ 300 };
 	
     // Gun
     Bullet bullet;
     float gunPlacementX{ body.getPosition().x + 60 };
     float reloadTime{ 0 };
+    int pointGun{ 0 };
 
     // Jump / movement
     sf::Vector2f velocity;

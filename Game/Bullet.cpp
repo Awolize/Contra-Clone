@@ -31,9 +31,31 @@ void Bullet::Update(float deltaTime)
 		if (time.asSeconds() < 0)
 			bulletHit = true;
 		if (faceRight)
+		{
+		    if (direction == -2)
+			body.move(velocity * deltaTime, velocity * deltaTime);
+		    else if (direction == -1)
+			body.move(velocity * deltaTime, velocity * deltaTime / 2);
+		    else if (direction == 0)
 			body.move(velocity * deltaTime, 0);
+		    else if (direction == 1)
+			body.move(velocity * deltaTime, -(velocity * deltaTime / 2));
+		    else if (direction == 2)
+			body.move(velocity * deltaTime, -(velocity * deltaTime));
+		}
 		else
-			body.move(-velocity * deltaTime, 0);
+		{
+		    if (direction == -2)
+			body.move(-(velocity * deltaTime), velocity * deltaTime);
+		    else if (direction == -1)
+			body.move(-(velocity * deltaTime), velocity * deltaTime / 2);
+		    else if (direction == 0)
+			body.move(-(velocity * deltaTime), 0);
+		    else if (direction == 1)
+			body.move(-(velocity * deltaTime), -(velocity * deltaTime / 2));
+		    else if (direction == 2)
+			body.move(-(velocity * deltaTime), -(velocity * deltaTime));
+		}
 	}
 	else
 	{
