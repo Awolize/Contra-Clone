@@ -24,13 +24,13 @@ public:
   std::vector<Bullet> bulletArray;
   bool bossActivated{ false };
   
+int lives {15};
 private:
   Animation animation;
   bool faceRight{ true };
   bool isFiring{ false };
   bool closeEnough{ false };
   bool passiveMode{true};
-  int lives {15};
   int row{0};
   double rngNumCanJump{0};
   

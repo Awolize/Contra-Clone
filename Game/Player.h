@@ -34,8 +34,8 @@ public:
     void CheckIfHit(Bullet & bullet);
     std::vector<Bullet> bulletArray;
     int lives{ 3 };
-
     bool end{ false };
+    float reloadTime0 = 0.4;
 private:
     int row{ 0 };
     Animation animation;
@@ -45,7 +45,6 @@ private:
     // Gun
     Bullet bullet;
     float gunPlacementX{ body.getPosition().x + 60 };
-    float reloadTime0 = 0.4;
     sf::Time reloadTime = sf::seconds(reloadTime0);
     int pointGun{ 0 };
 

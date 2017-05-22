@@ -62,7 +62,6 @@ void Bullet::Update(float deltaTime)
     {
 	if(animationExplosion)
 	{
-	    cout << explosionTime.asSeconds() << endl;
 	    if(explosionTime.asSeconds() > explosionTime0)
 	    {
 		body.setPosition(sf::Vector2f(6000, 6000));

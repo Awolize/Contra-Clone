@@ -68,6 +68,9 @@ int main()
     sf::Texture portal;
     portal.loadFromFile("images/door.png");
 
+    sf::Texture powerupFireRate;
+    powerupFireRate.loadFromFile("images/fireRate.png");
+
     sf::Sprite level1;
     level1.setTexture(background);
     level1.setOrigin(500.0f, 300.0f);
@@ -155,7 +158,12 @@ int main()
 
     vector<PowerUp> powerups;
     powerups.push_back(PowerUp(&poweruptexture, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(0, 0), "life"));
-
+    powerups.push_back(PowerUp(&powerupFireRate, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(300, 0), "fireRate"));
+    powerups.push_back(PowerUp(&powerupFireRate, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(350, 0), "fireRate"));
+    powerups.push_back(PowerUp(&powerupFireRate, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(400, 0), "fireRate"));
+    powerups.push_back(PowerUp(&powerupFireRate, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(300, 0), "fireRate"));
+    powerups.push_back(PowerUp(&powerupFireRate, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(300, 0), "fireRate"));
+    powerups.push_back(PowerUp(&powerupFireRate, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(300, 0), "fireRate"));
     std::vector<Bullet> bulletVector;
 
     // Platform Vector Array
@@ -324,9 +332,13 @@ int main()
 	    window.setView(menuView);
 	    window.display();
 	}
-
 	if (mainGameScreen)
 	{
+
+	    if (event.key.code == sf::Keyboard::P)
+	    {
+		boss.lives = 0;
+	    }
 
 	    deltaTime = clock.restart().asSeconds();
 	    if (deltaTime > 1.0f / 60.0f)
@@ -381,10 +393,10 @@ int main()
 			player.lives++;
 		    }
 
-		    if(player.CheckIfOnPowerUp(powerup) && powerup.name == "life")
+		    if(player.CheckIfOnPowerUp(powerup) && powerup.name == "fireRate")
 		    {
 			powerup.body.setPosition(0,1000.0f);
-			player.lives++;
+			player.reloadTime0 = player.reloadTime0 / 2;
 		    }
 		}
 
@@ -485,65 +497,72 @@ int main()
 	    }
 	    
 	    totalTime = totalClock.getElapsedTime();
-	    if (player.lives == 0 && writeOnce)
+	    if (boss.lives == 0)
 	    {
-		ofstream fout;
-		fout.open ("Highscore.txt", std::ios_base::app);
-		fout << totalTime.asSeconds() << endl;
-		cout << totalTime.asSeconds() << endl;
-		fout.close();
-		writeOnce = false;
+		if (writeOnce)
+		{
+		    ofstream fout;
+		    fout.open ("Highscore.txt", std::ios_base::app);
+		    fout << totalTime.asSeconds() << endl;
+		    cout << totalTime.asSeconds() << endl;
+		    fout.close();
+		    text.setPosition(player.getPosition().x - 300 , player.getPosition().y - 250);
+		    text.setString("Victory");
+		    text.setCharacterSize(200);
+		    window.draw(text);
+		    writeOnce = false;
+		}
 	    }
-
-	    //-------------View-----------------
-	    setview = player.getPosition().x;
-	    if (player.getPosition().x < 15)
-		setview = 15;
-	    gameView.setCenter(setview, 85);
-	    window.setView(gameView);
-	    //-------------Clear----------------
-	    window.clear(sf::Color(200, 0, 0));
-	    //-------------Draw-----------------
-	    window.draw(level1);
-	    for (PowerUp& powerup : powerups)
-		powerup.Draw(window);
-	    window.draw(door);
-	    boss.Draw(window);
-	    elapsed = textTime.getElapsedTime();
-
-	    if (elapsed.asSeconds() < 3.0)
-		window.draw(text);
-
-	    for (Enemy& enemy : enemyArray)
-		enemy.Draw(window);
-
-	    for(Platform& platform : lavaArray)
-		platform.Draw(window);
-
-	    player.Draw(window);
-
-	    for (Platform& platform : platformArray)
-		platform.Draw(window);
-
-	    float currentPos{ player.getPosition().x };
-	    if (player.getPosition().x < 15)
-		currentPos = 15;
-	    int tempHealthPos = currentPos - 512;
-	    for (int i{ 0 }; i < player.lives; i++)
+	    else
 	    {
-		health.setPosition(tempHealthPos + (i * 70), -300);
-		drawposhp.push_back(health);
+		//-------------View-----------------
+		setview = player.getPosition().x;
+		if (player.getPosition().x < 15)
+		    setview = 15;
+		gameView.setCenter(setview, 85);
+		window.setView(gameView);
+		//-------------Clear----------------
+		window.clear(sf::Color(200, 0, 0));
+		//-------------Draw-----------------
+		window.draw(level1);
+		for (PowerUp& powerup : powerups)
+		    powerup.Draw(window);
+		window.draw(door);
+		boss.Draw(window);
+		elapsed = textTime.getElapsedTime();
+
+		if (elapsed.asSeconds() < 3.0)
+		    window.draw(text);
+
+		for (Enemy& enemy : enemyArray)
+		    enemy.Draw(window);
+
+		for(Platform& platform : lavaArray)
+		    platform.Draw(window);
+
+		player.Draw(window);
+
+		for (Platform& platform : platformArray)
+		    platform.Draw(window);
+
+		float currentPos{ player.getPosition().x };
+		if (player.getPosition().x < 15)
+		    currentPos = 15;
+		int tempHealthPos = currentPos - 512;
+		for (int i{ 0 }; i < player.lives; i++)
+		{
+		    health.setPosition(tempHealthPos + (i * 70), -300);
+		    drawposhp.push_back(health);
+		}
+
+		for (sf::Sprite& health : drawposhp)
+		{
+		    window.draw(health);
+
+		}
+		drawposhp.erase(drawposhp.begin(), drawposhp.end());
+
 	    }
-
-	    for (sf::Sprite& health : drawposhp)
-	    {
-		window.draw(health);
-
-	    }
-	    drawposhp.erase(drawposhp.begin(), drawposhp.end());
-
-
-
 	    window.display();
 	}
     
