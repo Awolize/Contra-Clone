@@ -1,0 +1,45 @@
+#ifndef GAMEDRAW_H
+#define GAMEDRAW_H
+
+void drawOnScreen()    
+{
+    window.draw(level1);
+
+    elapsed = textTime.getElapsedTime();
+    // cout << elapsed.asSeconds() << std::endl;
+
+    if (elapsed.asSeconds() < 3.0)
+	window.draw(text);
+
+    for (Enemy& enemy : enemyArray)
+	enemy.Draw(window);
+
+    for(Platform& platform : lavaArray)
+	platform.Draw(window);
+
+    player.Draw(window);
+
+    for (Platform& platform : platformArray)
+	platform.Draw(window);
+
+    float currentPos{ player.getPosition().x };
+    if (player.getPosition().x < 15)
+	currentPos = 15;
+    int tempHealthPos = currentPos - 512;
+    for (int i{ 0 }; i < player.lives; i++)
+    {
+	health.setPosition(tempHealthPos + (i * 70), -300);
+	drawposhp.push_back(health);
+    }
+
+    for (sf::Sprite& health : drawposhp)
+    {
+	window.draw(health);
+
+    }
+    drawposhp.erase(drawposhp.begin(), drawposhp.end());
+
+}
+
+
+#endif
