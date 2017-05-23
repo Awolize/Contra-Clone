@@ -89,7 +89,7 @@ int main()
     font.loadFromFile("images/Arial.ttf");
 
     text.setFont(font);
-    text.setString("Level 1");
+    text.setString("Run!");
     text.setCharacterSize(100);
     text.setStyle(sf::Text::Bold | sf::Text::Underlined);
 
@@ -157,13 +157,9 @@ int main()
     Boss boss(sf::Vector2f(7600, 100), 100, 100, 10, 10, &bossTexture, sf::Vector2i(3, 4), 0.2f, &bossBullet);
 
     vector<PowerUp> powerups;
-    powerups.push_back(PowerUp(&poweruptexture, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(0, 0), "life"));
-    powerups.push_back(PowerUp(&powerupFireRate, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(300, 0), "fireRate"));
-    powerups.push_back(PowerUp(&powerupFireRate, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(350, 0), "fireRate"));
-    powerups.push_back(PowerUp(&powerupFireRate, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(400, 0), "fireRate"));
-    powerups.push_back(PowerUp(&powerupFireRate, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(300, 0), "fireRate"));
-    powerups.push_back(PowerUp(&powerupFireRate, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(300, 0), "fireRate"));
-    powerups.push_back(PowerUp(&powerupFireRate, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(300, 0), "fireRate"));
+    powerups.push_back(PowerUp(&poweruptexture, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(4300, 25), "life"));
+    powerups.push_back(PowerUp(&powerupFireRate, sf::Vector2f(80.0f, 80.0f), sf::Vector2f(2000, 25), "fireRate"));
+
     std::vector<Bullet> bulletVector;
 
     // Platform Vector Array
@@ -171,18 +167,22 @@ int main()
     std::vector<Platform> lavaArray;
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(500, 400)));
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(600, 400)));
+    lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(700, 400)));
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(800, 400)));
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(1000, 400)));
+    lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(1100, 400)));
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(1300, 400)));
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(1400, 400)));
+    lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(1500, 400)));
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(1600, 400)));
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(1700, 400)));
-    lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(1800, 400)));
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(2700, 400)));
+    lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(2800, 400)));
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(3200, 400)));
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(3300, 400)));
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(3400, 400)));
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(3000, 400)));
+    lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(3100, 400)));
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(4000, 400)));
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(4100, 400)));
     lavaArray.push_back(Platform(&lava, sf::Vector2f(100.0f, 250.0f), sf::Vector2f(4200, 400)));
@@ -194,18 +194,18 @@ int main()
     platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(200, 400)));
     platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(300, 400)));
     platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(400, 400)));
-    platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(700, 400)));
+    // platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(700, 400)));
     platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(900, 400)));
-    platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(1100, 400)));
+    // platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(1100, 400)));
     platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(1200, 400)));
-    platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(1500, 400)));
+    platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(1800, 400)));
     platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(1900, 400)));
     platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(2000, 400)));
     platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(2500, 400)));
     platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(2600, 400)));
-    platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(2800, 400)));
+    //platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(2800, 400)));
     platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(2900, 400)));
-    platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(3100, 400)));
+    //platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(3100, 400)));
     platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(3500, 400)));
     platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(3600, 400)));
     platformArray.push_back(Platform(&ground1, sf::Vector2f(100.0f, 300.0f), sf::Vector2f(3700, 400)));
@@ -298,8 +298,8 @@ int main()
 		cout << "New height: " << event.size.height << endl;
 		break;
 	    case sf::Event::TextEntered:
-		if (event.text.unicode < 128)
-		    cout << "ASCII chaaracter typed: " << static_cast<char>(event.text.unicode) << endl;
+		if (event.text.unicode < 128) {}
+			    //cout << "ASCII chaaracter typed: " << static_cast<char>(event.text.unicode) << endl;
 	    }
 	    break;
 	}
@@ -334,12 +334,6 @@ int main()
 	}
 	if (mainGameScreen)
 	{
-
-	    if (event.key.code == sf::Keyboard::P)
-	    {
-		boss.lives = 0;
-	    }
-
 	    deltaTime = clock.restart().asSeconds();
 	    if (deltaTime > 1.0f / 60.0f)
 		deltaTime = 1.0f / 60.0f;
@@ -466,19 +460,20 @@ int main()
 	    if(player.getPosition().x >= 4400 && player.getPosition().x < 5000)
 	    {
 		player.body.setPosition(7000, 200);
-		boss.bossActivated = true;	      
+	    }
+	    else if(player.getPosition().x >= 7000)
+	    {
+		player.atBoss = true;
+		boss.bossActivated = true;
+		boss.bossIntelligence(bossDistance);
 	    }
 
 	    bossDistance.x = abs(boss.getPosition().x - player.getPosition().x);
 	    bossDistance.y = abs(boss.getPosition().y - player.getPosition().y);
 
-	    if(player.getPosition().x > 5000)
-	    {	      
-		boss.bossIntelligence(bossDistance);
-	    }
-
-	    if (player.getPosition().y > 1000 || player.end == true) // Game Over
+	    if (player.lives == 0) // Game Over
 	    {
+		player.end = true;
 
 		if (player.end)
 		{
@@ -487,7 +482,7 @@ int main()
 		}
 		elapsed = textTime.getElapsedTime();
 		text.setString("Game Over");
-		text.setCharacterSize(200);
+		text.setCharacterSize(100);
 		window.draw(text);
 
 		if (elapsed.asSeconds() >= 3.0)

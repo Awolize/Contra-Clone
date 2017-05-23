@@ -6,6 +6,7 @@
 #include "Bullet.h"
 #include "Collider.h"
 #include "Enemy.h"
+#include "Boss.h"
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -36,6 +37,7 @@ public:
     int lives{ 3 };
     bool end{ false };
     float reloadTime0 = 0.4;
+    bool atBoss{ true };
 private:
     int row{ 0 };
     Animation animation;

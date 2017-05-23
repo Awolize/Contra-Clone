@@ -120,6 +120,7 @@ void Boss::Update(float deltaTime)
 		bullet.faceRight = false;
 	    }
 	    bullet.setPosition(sf::Vector2f(gunPlacementX, body.getPosition().y + -15));
+	    bullet.direction = -1;
 	    bulletArray.push_back(bullet);
 	    reloadTime++;
 	}

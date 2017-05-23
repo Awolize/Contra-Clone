@@ -178,10 +178,18 @@ void Player::CheckIfHit(Bullet & bullet)
 	)
     {
 	bullet.setBulletHit(true);
+	if(body.getPosition().x >= 6900)
+	{
+	    body.setPosition(sf::Vector2f(7000, 0));
+	}
+	else
+	{
 	body.setPosition(sf::Vector2f(200, 0));
+	}
 	lives--;
 	velocity.y = 0.0f;
 	canJump = true;
+
     }
 }
 
